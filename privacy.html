@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — bitcoincash.ee Pool</title>
+  <meta name="description" content="Privacy Policy for bitcoincash.ee Pool, a Bitcoin Cash mining pool." />
+  <meta property="og:title" content="Privacy Policy — bitcoincash.ee Pool" />
+  <meta property="og:description" content="Privacy Policy for bitcoincash.ee Pool, a Bitcoin Cash mining pool." />
+  <meta property="og:image" content="https://test.bch.ee/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://test.bch.ee/privacy.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="bitcoincash.ee Pool" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Privacy Policy — bitcoincash.ee Pool" />
+  <meta name="twitter:description" content="Privacy Policy for bitcoincash.ee Pool, a Bitcoin Cash mining pool." />
+  <meta name="twitter:image" content="https://test.bch.ee/og-image.png" />
+  <link rel="canonical" href="https://test.bch.ee/privacy.html" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Ubuntu+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .legal-body h2 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin: 2rem 0 .5rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .legal-body h2:first-child { margin-top: 0; }
+    .legal-body p, .legal-body li {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.75;
+    }
+    .legal-body ul, .legal-body ol {
+      padding-left: 1.5rem;
+      margin-top: .4rem;
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+    .legal-body p + p { margin-top: .6rem; }
+    .legal-meta {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      transition: opacity .2s;
+    }
+    .back-link:hover { opacity: .75; }
+  </style>
+</head>
+<body>
+<div class="site-topbar">
+  <div class="testnet-banner" role="alert">This is the Testnet4 version of bitcoincash.ee Pool &middot; Mainnet coming soon</div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img src="logo.svg" alt="bitcoincash.ee Pool" class="logo-icon" />
+        <span class="logo-text"><span class="accent">bitcoincash.ee</span> Pool</span>
+      </a>
+      <nav class="nav">
+        <a href="/" class="nav-btn">Home</a>
+        <a href="/#connect" class="nav-btn">Connect</a>
+        <a href="/#mystats" class="nav-btn">My Stats</a>
+        <a href="/#blocks" class="nav-btn">Blocks</a>
+        <a href="/faq.html" class="nav-btn">FAQ</a>
+      </nav>
+    </div>
+  </header>
+  </div>
+
+  <main class="container" style="max-width:720px">
+
+    <a href="/" class="back-link">← Back to bitcoincash.ee Pool</a>
+
+    <div class="hero" style="margin-bottom:1.5rem">
+      <h1>Privacy <span class="accent">Policy</span></h1>
+    </div>
+
+    <p class="legal-meta">Last updated: March 2026</p>
+
+    <div class="card legal-body">
+
+      <h2>1. Overview</h2>
+      <p>bitcoincash.ee Pool is designed to collect as little data as possible. We do not require registration, email addresses, or any personal identification. Your BCH address is your identity on the pool — nothing more.</p>
+
+      <h2>2. Data Collected by the Pool Server</h2>
+      <p>When your miner connects to <code>testnet4.bitcoincash.ee:3333</code>, the pool server logs the following:</p>
+      <ul>
+        <li><strong>Your BCH address</strong> — used as your username to attribute shares and send payouts.</li>
+        <li><strong>Worker name</strong> — the optional suffix after your address (e.g. <code>.worker1</code>), used to distinguish multiple devices.</li>
+        <li><strong>Your IP address</strong> — logged by the pool server for connection management and abuse prevention.</li>
+        <li><strong>Share submissions</strong> — timestamps and difficulty of shares submitted by your miner.</li>
+      </ul>
+      <p>This data is stored on the pool server located in Frankfurt, Germany. It is not sold, shared, or disclosed to any third party, except where required by law.</p>
+
+      <h2>3. Data Collected by This Website</h2>
+      <p>This website is a static site hosted on GitHub Pages. It does not use cookies, tracking pixels, analytics scripts, or any form of user tracking.</p>
+      <p>When you use the My Stats lookup, your BCH address is sent directly from your browser to the pool API (<code>testnet4.bitcoincash.ee</code>). It is not stored by the website.</p>
+
+      <h2>4. Third-Party Services</h2>
+      <p>This website makes requests to the following third-party services:</p>
+      <ul>
+        <li><strong>Google Fonts</strong> — to load the Ubuntu and Ubuntu Mono typefaces. Google may log your IP address when fonts are fetched.</li>
+        <li><strong>CoinGecko API</strong> — to display the live BCH price. No personal data is sent; only a standard API request is made from your browser.</li>
+        <li><strong>SoloChance.org API</strong> — to calculate the estimated block rate. No personal data is sent.</li>
+      </ul>
+      <p>These services have their own privacy policies. bitcoincash.ee Pool has no control over the data they collect.</p>
+
+      <h2>5. GitHub Pages</h2>
+      <p>This website is hosted on GitHub Pages. GitHub may collect server logs including IP addresses as part of their standard infrastructure. See <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub's Privacy Statement</a> for details.</p>
+
+      <h2>6. BCH Address and Blockchain Transparency</h2>
+      <p>Bitcoin Cash is a public blockchain. Any BCH address you use on the pool — and all transactions to and from it — are permanently visible on the public blockchain. This is a fundamental property of BCH, not specific to this pool. We have no ability to make blockchain transactions private.</p>
+
+      <h2>7. Data Retention</h2>
+      <p>Share and connection data is retained on the pool server for operational purposes. We do not have a fixed retention schedule during the beta period. If you would like your data removed, contact us via Telegram or email (see Contact below) and we will make reasonable efforts to accommodate your request.</p>
+
+      <h2>8. Children</h2>
+      <p>This service is not directed at children under the age of 18. We do not knowingly collect data from minors.</p>
+
+      <h2>9. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. The date at the top of this page reflects the most recent revision. Continued use of the pool after changes are posted constitutes acceptance of the updated policy.</p>
+
+      <h2>10. Contact</h2>
+      <p>For privacy-related questions or data removal requests, contact us via Telegram: <a href="https://t.me/bitcoincashee" target="_blank" rel="noopener">t.me/bitcoincashee</a>, or email <a href="mailto:hi@bitcoincash.ee">hi@bitcoincash.ee</a>.</p>
+
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="https://t.me/bitcoincashee" target="_blank" rel="noopener" class="tg-footer-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 14.498l-2.95-.924c-.64-.204-.657-.64.136-.948l11.57-4.461c.537-.194 1.006.131.836.083z"/></svg>
+        t.me/bitcoincashee
+      </a>
+      <a href="mailto:hi@bitcoincash.ee" class="email-footer-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        hi@bitcoincash.ee
+      </a>
+      <span class="muted">
+        <a href="/terms.html" style="color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Terms</a>
+        &nbsp;·&nbsp;
+        <a href="/privacy.html" style="color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Privacy</a>
+      </span>
+    </div>
+    <div class="container footer-networks">
+      <div>Mainnet: <a href="https://bitcoincash.ee" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">bitcoincash.ee</a> &mdash; <span class="accent">mainnet.bitcoincash.ee:3333</span></div>
+      <div>Testnet4: <a href="/" style="color:var(--accent);text-decoration:none">test.bch.ee</a> &mdash; <span class="accent">testnet4.bitcoincash.ee:3333</span></div>
+    </div>
+    <div class="container footer-bottom">
+      <div>&copy; 2026 bitcoincash.ee Pool. &middot; a <a href="https://solochance.org" target="_blank" rel="noopener" class="footer-solochance-link">SoloChance.org</a> project</div>
+      <div>Built in 🇪🇪 Estonia &middot; Hosted in 🇩🇪 Germany</div>
+    </div>
+  </footer>
+
+</body>
+</html>

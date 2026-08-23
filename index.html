@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bitcoincash.ee Pool — Bitcoin Cash Mining Pool</title>
+  <meta name="description" content="The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Top 13 Best Shares payout. ~1.4% effective fee. testnet4.bitcoincash.ee:3333" />
+  <meta property="og:title" content="bitcoincash.ee Pool — Bitcoin Cash Mining Pool" />
+  <meta property="og:description" content="The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Top 13 Best Shares payout. ~1.4% effective fee. testnet4.bitcoincash.ee:3333" />
+  <meta property="og:image" content="https://test.bch.ee/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://test.bch.ee" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="bitcoincash.ee Pool" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="bitcoincash.ee Pool — Bitcoin Cash Mining Pool" />
+  <meta name="twitter:description" content="The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Top 13 Best Shares payout." />
+  <meta name="twitter:image" content="https://test.bch.ee/og-image.png" />
+  <link rel="canonical" href="https://test.bch.ee/" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Ubuntu+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6507588368884912"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="site-topbar">
+  <div class="testnet-banner" role="alert">This is the Testnet4 version of bitcoincash.ee Pool &middot; Mainnet coming soon</div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img src="logo.svg" alt="bitcoincash.ee Pool" class="logo-icon" />
+        <span class="logo-text"><span class="accent">bitcoincash.ee</span> Pool</span>
+      </a>
+      <nav class="nav">
+        <button class="nav-btn active" data-section="home">Home</button>
+        <button class="nav-btn" data-section="connect">Connect</button>
+        <button class="nav-btn" data-section="mystats">My Stats</button>
+        <button class="nav-btn" data-section="bestshares">Best Shares</button>
+        <button class="nav-btn" data-section="blocks">Blocks</button>
+        <a href="/faq.html" class="nav-btn">FAQ</a>
+      </nav>
+    </div>
+  </header>
+  </div>
+
+  <main class="container">
+
+    <!-- HOME SECTION -->
+    <section id="home" class="section active">
+
+      <div class="hero">
+        <div class="hero-inner">
+          <img src="bch-logo.png" alt="Bitcoin Cash" class="hero-bch-logo" />
+          <div>
+            <div class="byline">
+              <span class="byline-part">Run by the developer of <a href="https://solochance.org" target="_blank" rel="noopener" class="byline-link">SoloChance.org</a></span>
+            </div>
+            <h1><span class="brand-fold"><span class="brand-slot brand-short">bitcoincash.ee Pool:</span><span class="brand-slot brand-long">Bitcoin Cash Everyone Earns Pool!</span></span><br/><span class="accent">The most exciting SHA-256 pool to join.</span></h1>
+            <p class="hero-sub">Low enough difficulty to find blocks. High enough bonuses to matter. Best pool to protect your home miners from impossible odds or dust satoshis.</p>
+            <a href="https://t.me/bitcoincashee" target="_blank" rel="noopener" class="tg-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 14.498l-2.95-.924c-.64-.204-.657-.64.136-.948l11.57-4.461c.537-.194 1.006.131.836.083z"/></svg>
+              Join our Telegram
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pool Stats -->
+      <div class="section-title">Bitcoin Cash</div>
+      <div class="card-grid" id="bch-grid" style="margin-bottom:2rem">
+        <div class="card stat-card" id="stat-price">
+          <div class="stat-label">BCH / USD</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+        <div class="card stat-card" id="stat-nethash">
+          <div class="stat-label">Network Hashrate</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+      </div>
+
+      <div class="section-title">Pool Status</div>
+      <div id="pool-status-banner" class="warming-banner hidden">
+        <span class="warming-icon">🌱</span>
+        <div>
+          <strong>Pool is warming up</strong>
+          <p>The node is still syncing. Stats will appear here shortly — check back in a few minutes.</p>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Hashrate &amp; Workers <span id="chart-window" class="chart-window"></span></div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-swatch legend-hashrate"></span>Hashrate</span>
+            <span class="legend-item"><span class="legend-swatch legend-workers"></span>Workers</span>
+            <span class="legend-item"><span class="legend-swatch legend-blocks"></span>Blocks Found</span>
+          </div>
+        </div>
+        <div id="pool-chart-wrap" class="chart-wrap">
+          <div id="pool-chart-message" class="chart-message">Loading chart…</div>
+          <svg id="pool-chart-svg" class="chart-svg hidden" viewBox="0 0 600 220" preserveAspectRatio="none"></svg>
+          <div id="pool-chart-tooltip" class="chart-tooltip hidden"></div>
+        </div>
+      </div>
+
+      <div class="card-grid" id="stats-grid">
+        <div class="card stat-card" id="stat-hashrate">
+          <div class="stat-label">Pool Hashrate</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+        <div class="card stat-card" id="stat-workers">
+          <div class="stat-label">Active Workers</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+        <div class="card stat-card" id="stat-blocks">
+          <div class="stat-label">Blocks Found</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+        <div class="card stat-card" id="stat-uptime">
+          <div class="stat-label">Uptime</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+        <div class="card stat-card" id="stat-bestshare">
+          <div class="stat-label">Best Share</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+        <div class="card stat-card" id="stat-effort">
+          <div class="stat-label">Current Effort</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1.5rem;text-align:center">
+        <div class="stat-label">Minimum Best Share to Win</div>
+        <div style="margin-top:.85rem;display:flex;flex-direction:column;gap:.4rem;font-size:.9rem">
+          <div id="mbs-13">—</div>
+          <div id="mbs-3">—</div>
+          <div id="mbs-2">—</div>
+          <div id="mbs-1">—</div>
+        </div>
+        <p style="color:var(--muted);font-size:.85rem;margin-top:.75rem">On top of that, find the block and win <strong id="mbs-finder" style="color:var(--accent)">—</strong>.</p>
+      </div>
+
+      <div class="section-title" style="margin-top:2.5rem">Pool Chances</div>
+      <div class="card-grid" id="chances-grid">
+        <div class="card stat-card" id="stat-luck">
+          <div class="stat-label">Est. Block Rate</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+        <div class="card stat-card" id="stat-pool-chance-day">
+          <div class="stat-label">Chance / Day</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+        <div class="card stat-card" id="stat-pool-chance-week">
+          <div class="stat-label">Chance / Week</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+        <div class="card stat-card" id="stat-pool-chance-month">
+          <div class="stat-label">Chance / Month</div>
+          <div class="stat-value skeleton">—</div>
+        </div>
+      </div>
+
+      <!-- Pool Info Cards -->
+      <div class="section-title" style="margin-top:2.5rem">How bitcoincash.ee Pool works?</div>
+      <div class="card-grid two-col">
+        <div class="card info-card">
+          <div class="info-icon">🏆</div>
+          <div class="info-title">How Each Block Pays Out</div>
+          <div class="info-desc">
+            Every payment is made directly in the block's coinbase — fully trustless, with no ongoing bookkeeping.
+            <ul class="payout-order">
+              <li><span class="payout-amount">2%</span> pool fee</li>
+              <li><span class="payout-amount">1 BCH</span> Finder Bonus</li>
+            </ul>
+            <p style="margin-top:.65rem">The rest is the prize pot, paid to the 13 Best Shares of the round:</p>
+            <ul class="payout-order">
+              <li>🥇 1st place: <span class="payout-amount">38.3%</span> of the pot</li>
+              <li>🥈 2nd place: <span class="payout-amount">23.6%</span></li>
+              <li>🥉 3rd place: <span class="payout-amount">14.6%</span></li>
+              <li>Places 4 to 13: <span class="payout-amount">2.35%</span> each, everyone on the board gets paid</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card info-card">
+          <div class="info-icon">🥇</div>
+          <div class="info-title">1 BCH Finder Bonus, First 3 Leaderboard Payments, Following Best 10 Shares Bonuses</div>
+          <div class="info-desc">
+            <ol class="payout-order">
+              <li>1 BCH Finder Bonus — <span class="payout-amount" id="c3-finder">—</span></li>
+              <li>1st Best Share — <span class="payout-amount" id="c3-rank-1">—</span></li>
+              <li>2nd Best Share — <span class="payout-amount" id="c3-rank-2">—</span></li>
+              <li>3rd Best Share — <span class="payout-amount" id="c3-rank-3">—</span></li>
+              <li>Following Best 10 Shares 4th–13th — <span class="payout-amount" id="c3-rank-4-13">—</span> each</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- How to Connect -->
+      <div class="section-title" style="margin-top:2.5rem">How to Connect</div>
+      <div class="card connect-card">
+        <div class="connect-row">
+          <span class="connect-label">Stratum</span>
+          <code class="connect-value">testnet4.bitcoincash.ee:3333</code>
+        </div>
+        <p class="input-hint">For high-diff rentals (e.g. NiceHash), use port <code style="font-size:.8rem">3334</code></p>
+        <div class="connect-row">
+          <span class="connect-label">Username</span>
+          <code class="connect-value">your BCH address.workername</code>
+        </div>
+
+        <div class="disclaimer" style="margin:.75rem 0">
+          <span class="disclaimer-icon">⚠️</span>
+          <div>
+            <strong>Use CashAddr addresses only</strong>
+            <p>Your username must be a CashAddr-format BCH address starting with the <code>bitcoincash:</code> prefix.</p>
+            <p style="margin-top:.5rem">Examples:<br/>
+              without a worker name: <code>bitcoincash:qp9dtcrs5nlc308prrs3526qk6zdwev9kvm3qs906j</code><br/>
+              or with a worker name: <code>bitcoincash:qp9dtcrs5nlc308prrs3526qk6zdwev9kvm3qs906j.nerdqaxe2</code>
+            </p>
+          </div>
+        </div>
+
+        <div class="connect-row">
+          <span class="connect-label">Password</span>
+          <code class="connect-value">x</code>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:2rem">Example Config</div>
+      <div class="card">
+        <div class="config-tabs">
+          <button class="tab-btn active" data-tab="home-bitaxe">Bitaxe</button>
+          <button class="tab-btn" data-tab="home-avalon">Avalon Nano / Q</button>
+          <button class="tab-btn" data-tab="home-braiins">Braiins</button>
+          <button class="tab-btn" data-tab="home-nicehash">NiceHash</button>
+          <button class="tab-btn" data-tab="home-cpuminer">cpuminer</button>
+          <button class="tab-btn" data-tab="home-cgminer">cgminer</button>
+        </div>
+        <pre id="tab-home-cpuminer" class="config-block"><code>cpuminer-opt \
+  -a sha256d \
+  -o stratum+tcp://testnet4.bitcoincash.ee:3333 \
+  -u YOUR_BCH_ADDRESS.worker1 \
+  -p x</code></pre>
+        <pre id="tab-home-cgminer" class="config-block"><code>cgminer \
+  --url stratum+tcp://testnet4.bitcoincash.ee:3333 \
+  --user YOUR_BCH_ADDRESS.worker1 \
+  --pass x</code></pre>
+        <div id="tab-home-bitaxe" class="config-block bitaxe-ui active">
+          <div class="bitaxe-header">
+            <span class="bitaxe-logo">⛏</span>
+            <span>Pool Settings</span>
+          </div>
+          <div class="bitaxe-form">
+            <div class="bitaxe-field">
+              <label>Stratum Host</label>
+              <input type="text" value="testnet4.bitcoincash.ee" readonly />
+            </div>
+            <div class="bitaxe-field">
+              <label>Stratum Port</label>
+              <input type="text" value="3333" readonly />
+            </div>
+            <div class="bitaxe-field">
+              <label>User</label>
+              <input type="text" value="YOUR_BCH_ADDRESS.bitaxe1" readonly />
+            </div>
+            <div class="bitaxe-field">
+              <label>Password</label>
+              <input type="text" value="x" readonly />
+            </div>
+          </div>
+        </div>
+        <div id="tab-home-avalon" class="config-block avalon-ui">
+          <div class="avalon-header">
+            <span class="avalon-logo">⛏</span>
+            <span>Pool Configuration</span>
+          </div>
+          <div class="avalon-form">
+            <div class="avalon-field">
+              <label>Pool 1 URL</label>
+              <input type="text" value="stratum+tcp://testnet4.bitcoincash.ee:3333" readonly />
+            </div>
+            <div class="avalon-field">
+              <label>Pool 1 Worker</label>
+              <input type="text" value="YOUR_BCH_ADDRESS.avalon1" readonly />
+            </div>
+            <div class="avalon-field">
+              <label>Pool 1 Password</label>
+              <input type="text" value="x" readonly />
+            </div>
+          </div>
+        </div>
+        <div id="tab-home-braiins" class="config-block braiins-ui">
+          <div class="braiins-header">
+            <span class="braiins-logo">⛏</span>
+            <span>Favourite Pools</span>
+          </div>
+          <div class="braiins-form">
+            <div class="braiins-field">
+              <label>Pool URL</label>
+              <input type="text" value="YOUR_BCH_ADDRESS.braiins@stratum+tcp://testnet4.bitcoincash.ee:3334" readonly />
+            </div>
+          </div>
+        </div>
+        <div id="tab-home-nicehash" class="config-block nicehash-ui">
+          <div class="nicehash-header">
+            <span class="nicehash-logo">⛏</span>
+            <span>Add new pool</span>
+          </div>
+          <div class="nicehash-form">
+            <div class="nicehash-field">
+              <label>Custom pool name</label>
+              <input type="text" value="testnet4.bitcoincash.ee" readonly />
+            </div>
+            <div class="nicehash-field">
+              <label>Algorithm</label>
+              <select disabled><option>SHA256AsicBoost</option></select>
+            </div>
+            <p class="nicehash-note">minimum pool difficulty: >= 500000</p>
+            <div class="nicehash-row">
+              <div class="nicehash-field">
+                <label>Stratum hostname or IP</label>
+                <input type="text" value="testnet4.bitcoincash.ee" readonly />
+              </div>
+              <div class="nicehash-field">
+                <label>Port</label>
+                <input type="text" value="3334" readonly />
+              </div>
+            </div>
+            <div class="nicehash-field">
+              <label>Username</label>
+              <input type="text" value="YOUR_BCH_ADDRESS.nicehash" readonly />
+            </div>
+            <div class="nicehash-field">
+              <label>Password</label>
+              <input type="text" value="x" readonly />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer-placeholder" style="margin-top:2.5rem"></div>
+
+    </section>
+
+    <!-- CONNECT SECTION -->
+    <section id="connect" class="section">
+      <div class="hero">
+        <h1>How to <span class="accent">Connect</span></h1>
+        <p class="hero-sub">Point your miner at <code style="color:var(--accent)">testnet4.bitcoincash.ee:3333</code> using your BCH address as the username.</p>
+      </div>
+
+      <div class="section-title">Connection Details</div>
+      <div class="card connect-card">
+        <div class="connect-row">
+          <span class="connect-label">Stratum</span>
+          <code class="connect-value">testnet4.bitcoincash.ee:3333</code>
+        </div>
+        <p class="input-hint">For high-diff rentals (e.g. NiceHash), use port <code style="font-size:.8rem">3334</code></p>
+        <div class="connect-row">
+          <span class="connect-label">Username</span>
+          <code class="connect-value">your BCH address.workername</code>
+        </div>
+
+        <div class="disclaimer" style="margin:.75rem 0">
+          <span class="disclaimer-icon">⚠️</span>
+          <div>
+            <strong>Use CashAddr addresses only</strong>
+            <p>Your username must be a CashAddr-format BCH address starting with the <code>bitcoincash:</code> prefix.</p>
+            <p style="margin-top:.5rem">Examples:<br/>
+              without a worker name: <code>bitcoincash:qp9dtcrs5nlc308prrs3526qk6zdwev9kvm3qs906j</code><br/>
+              or with a worker name: <code>bitcoincash:qp9dtcrs5nlc308prrs3526qk6zdwev9kvm3qs906j.nerdqaxe2</code>
+            </p>
+          </div>
+        </div>
+
+        <div class="connect-row">
+          <span class="connect-label">Password</span>
+          <code class="connect-value">x</code>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:2rem">Example Config</div>
+      <div class="card">
+        <div class="config-tabs">
+          <button class="tab-btn active" data-tab="bitaxe">Bitaxe</button>
+          <button class="tab-btn" data-tab="avalon">Avalon Nano / Q</button>
+          <button class="tab-btn" data-tab="braiins">Braiins</button>
+          <button class="tab-btn" data-tab="nicehash">NiceHash</button>
+          <button class="tab-btn" data-tab="cpuminer">cpuminer</button>
+          <button class="tab-btn" data-tab="cgminer">cgminer</button>
+        </div>
+        <pre id="tab-cpuminer" class="config-block"><code>cpuminer-opt \
+  -a sha256d \
+  -o stratum+tcp://testnet4.bitcoincash.ee:3333 \
+  -u YOUR_BCH_ADDRESS.worker1 \
+  -p x</code></pre>
+        <pre id="tab-cgminer" class="config-block"><code>cgminer \
+  --url stratum+tcp://testnet4.bitcoincash.ee:3333 \
+  --user YOUR_BCH_ADDRESS.worker1 \
+  --pass x</code></pre>
+        <div id="tab-bitaxe" class="config-block bitaxe-ui active">
+          <div class="bitaxe-header">
+            <span class="bitaxe-logo">⛏</span>
+            <span>Pool Settings</span>
+          </div>
+          <div class="bitaxe-form">
+            <div class="bitaxe-field">
+              <label>Stratum Host</label>
+              <input type="text" value="testnet4.bitcoincash.ee" readonly />
+            </div>
+            <div class="bitaxe-field">
+              <label>Stratum Port</label>
+              <input type="text" value="3333" readonly />
+            </div>
+            <div class="bitaxe-field">
+              <label>User</label>
+              <input type="text" value="YOUR_BCH_ADDRESS.bitaxe1" readonly />
+            </div>
+            <div class="bitaxe-field">
+              <label>Password</label>
+              <input type="text" value="x" readonly />
+            </div>
+          </div>
+        </div>
+        <div id="tab-avalon" class="config-block avalon-ui">
+          <div class="avalon-header">
+            <span class="avalon-logo">⛏</span>
+            <span>Pool Configuration</span>
+          </div>
+          <div class="avalon-form">
+            <div class="avalon-field">
+              <label>Pool 1 URL</label>
+              <input type="text" value="stratum+tcp://testnet4.bitcoincash.ee:3333" readonly />
+            </div>
+            <div class="avalon-field">
+              <label>Pool 1 Worker</label>
+              <input type="text" value="YOUR_BCH_ADDRESS.avalon1" readonly />
+            </div>
+            <div class="avalon-field">
+              <label>Pool 1 Password</label>
+              <input type="text" value="x" readonly />
+            </div>
+          </div>
+        </div>
+        <div id="tab-braiins" class="config-block braiins-ui">
+          <div class="braiins-header">
+            <span class="braiins-logo">⛏</span>
+            <span>Favourite Pools</span>
+          </div>
+          <div class="braiins-form">
+            <div class="braiins-field">
+              <label>Pool URL</label>
+              <input type="text" value="YOUR_BCH_ADDRESS.braiins@stratum+tcp://testnet4.bitcoincash.ee:3334" readonly />
+            </div>
+          </div>
+        </div>
+        <div id="tab-nicehash" class="config-block nicehash-ui">
+          <div class="nicehash-header">
+            <span class="nicehash-logo">⛏</span>
+            <span>Add new pool</span>
+          </div>
+          <div class="nicehash-form">
+            <div class="nicehash-field">
+              <label>Custom pool name</label>
+              <input type="text" value="testnet4.bitcoincash.ee" readonly />
+            </div>
+            <div class="nicehash-field">
+              <label>Algorithm</label>
+              <select disabled><option>SHA256AsicBoost</option></select>
+            </div>
+            <p class="nicehash-note">minimum pool difficulty: >= 500000</p>
+            <div class="nicehash-row">
+              <div class="nicehash-field">
+                <label>Stratum hostname or IP</label>
+                <input type="text" value="testnet4.bitcoincash.ee" readonly />
+              </div>
+              <div class="nicehash-field">
+                <label>Port</label>
+                <input type="text" value="3334" readonly />
+              </div>
+            </div>
+            <div class="nicehash-field">
+              <label>Username</label>
+              <input type="text" value="YOUR_BCH_ADDRESS.nicehash" readonly />
+            </div>
+            <div class="nicehash-field">
+              <label>Password</label>
+              <input type="text" value="x" readonly />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer-placeholder" style="margin-top:2.5rem"></div>
+
+    </section>
+
+    <!-- MY STATS SECTION -->
+    <section id="mystats" class="section">
+      <div class="hero">
+        <h1>My <span class="accent">Stats</span></h1>
+        <p class="hero-sub">Enter your BCH address to see your hashrate, shares, and estimated earnings.</p>
+      </div>
+
+      <div class="card lookup-card">
+        <div class="lookup-row">
+          <input
+            type="text"
+            id="address-input"
+            class="address-input"
+            placeholder="bitcoincash:qp3wjpa3tjlj042z2wv7hahsldgwhwy0rq9sywjpyy"
+            autocomplete="on"
+            name="bch-address"
+            spellcheck="false"
+          />
+          <button class="btn-primary" id="lookup-btn">Look Up</button>
+        </div>
+        <p class="input-hint">Your BCH address is also your pool username.</p>
+      </div>
+
+      <div id="user-status-banner" class="warming-banner hidden">
+        <span class="warming-icon">🌱</span>
+        <div>
+          <strong>No data yet</strong>
+          <p id="user-status-msg">This address hasn't been seen by the pool yet, or the node is still warming up.</p>
+        </div>
+      </div>
+
+      <div id="user-stats-grid" class="card-grid hidden">
+        <div class="card stat-card">
+          <div class="stat-label">Hashrate</div>
+          <div class="stat-value" id="user-hashrate">—</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">Active Workers</div>
+          <div class="stat-value" id="user-workers">—</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">Last Share</div>
+          <div class="stat-value" id="user-lastseen">—</div>
+        </div>
+      </div>
+
+      <div id="user-chance-grid" class="card-grid hidden" style="margin-top:1rem">
+        <div class="card stat-card">
+          <div class="stat-label">Your block chance / day</div>
+          <div class="stat-value skeleton" id="user-chance-day" style="font-size:1.2rem">—</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">Your block chance / week</div>
+          <div class="stat-value skeleton" id="user-chance-week" style="font-size:1.2rem">—</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">Your block chance / month</div>
+          <div class="stat-value skeleton" id="user-chance-month" style="font-size:1.2rem">—</div>
+        </div>
+      </div>
+
+      <p id="user-payout-note" class="hidden" style="color:var(--muted);font-size:.8rem;margin-top:1rem">These are estimates based on current round data and your rank on the Best Shares board. Actual payouts may differ.</p>
+      <p id="user-payout-unranked" class="hidden" style="color:var(--muted);font-size:.8rem;margin-top:1rem">Your current best share isn't in this round's paid Top 13 yet — keep mining to climb the <button class="faq-link-btn" data-section="bestshares">Best Shares board</button>.</p>
+      <div id="user-payout-grid" class="card-grid hidden" style="margin-top:.5rem">
+        <div class="card stat-card">
+          <div class="stat-label">If you find the block</div>
+          <div class="stat-value" id="user-payout-finder" style="font-size:1.3rem">—</div>
+          <div class="stat-change" id="user-payout-finder-usd" style="color:var(--muted);font-size:.75rem">1 BCH bonus + your share</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">If someone else finds it</div>
+          <div class="stat-value" id="user-payout-share" style="font-size:1.3rem">—</div>
+          <div class="stat-change" id="user-payout-share-usd" style="color:var(--muted);font-size:.75rem">your Best Shares rank payout</div>
+        </div>
+      </div>
+
+      <div id="user-workers-card" class="card hidden" style="margin-top:1.5rem">
+        <div class="section-title" style="margin-top:0">Workers</div>
+        <div style="overflow-x:auto">
+          <table id="user-workers-table" class="workers-table"></table>
+        </div>
+      </div>
+
+      <div id="user-details-card" class="card hidden" style="margin-top:1.5rem">
+        <div class="section-title" style="margin-top:0">Raw Response</div>
+        <pre id="user-curl" class="config-block active" style="color:var(--muted);font-size:.8rem;margin-bottom:.75rem"></pre>
+        <pre id="user-raw" class="config-block active" style="max-height:300px;overflow:auto"></pre>
+      </div>
+
+      <div class="disclaimer-placeholder" style="margin-top:1.5rem"></div>
+
+    </section>
+
+    <!-- BLOCKS SECTION -->
+    <section id="blocks" class="section">
+      <div class="hero">
+        <h1>Found <span class="accent">Blocks</span></h1>
+        <p class="hero-sub">Blocks solved by the pool. The finder receives a 1 BCH bonus on top of the normal reward.</p>
+        <p class="hero-sub"><strong id="blocks-total-count" class="accent">—</strong> blocks found</p>
+      </div>
+
+      <div id="blocks-status-banner" class="warming-banner hidden">
+        <span class="warming-icon">🌱</span>
+        <div>
+          <strong>Pool is warming up</strong>
+          <p>No block data available yet. Check back once the node finishes syncing.</p>
+        </div>
+      </div>
+
+      <div id="blocks-loading" class="card text-center">Loading blocks...</div>
+
+      <div id="blocks-list"></div>
+
+      <div id="blocks-pagination" class="blocks-pagination hidden">
+        <button id="blocks-prev-btn" class="page-btn">‹ Prev</button>
+        <span id="blocks-page-info" class="page-info">Page 1 of 1</span>
+        <button id="blocks-next-btn" class="page-btn">Next ›</button>
+      </div>
+
+      <div id="blocks-empty" class="card text-center hidden">
+        <div style="font-size:2.5rem;margin-bottom:.75rem">🧱</div>
+        <div class="stat-label">No blocks found yet</div>
+        <p style="color:var(--muted);margin-top:.5rem">The pool hasn't solved a block yet. Keep mining!</p>
+      </div>
+    </section>
+
+    <!-- BEST SHARES SECTION -->
+    <section id="bestshares" class="section">
+      <div class="hero">
+        <h1>Current Best <span class="accent">Shares</span></h1>
+        <p class="hero-sub">Live preview of this round's coinbase split, straight from the pool node. <strong>Best Share</strong> and <strong>% of Net Diff</strong> show how close each miner has come to solving a block — a share reaching 100% solves it. Only the top 13 ranks get paid.</p>
+      </div>
+      <div id="bestshares-loading" class="card text-center">Loading...</div>
+      <div id="bestshares-content" class="hidden">
+
+        <div class="section-title" style="margin-top:0">Total in Coinbase</div>
+        <div class="card" style="margin-bottom:1.5rem">
+          <div style="overflow-x:auto">
+            <table id="bs-total-table" class="workers-table"></table>
+          </div>
+        </div>
+
+        <div class="section-title">Payout Breakdown</div>
+        <div class="card" id="bs-payouts-card">
+          <div style="overflow-x:auto">
+            <table id="bs-payouts-table" class="workers-table"></table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="section">
+      <div class="hero">
+        <h1>Frequently Asked <span class="accent">Questions</span></h1>
+        <p class="hero-sub">Everything you need to know about bitcoincash.ee Pool.</p>
+      </div>
+
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>What is bitcoincash.ee Pool?</summary>
+          <p>bitcoincash.ee Pool is a Bitcoin Cash (BCH) mining pool that combines a 1 BCH block finder bonus with a Top 13 Best Shares payout for the round's leading miners. It is run by the developer of <a href="https://solochance.org" target="_blank" rel="noopener">SoloChance.org</a> and is currently in beta.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What makes this pool different from a regular BCH pool?</summary>
+          <p>Most mining pools fall into one of two camps: <strong>solo pools</strong>, where you chase the full block reward alone with no guarantees, or <strong>proportional pools</strong>, where rewards are shared steadily but there is nothing to get excited about.</p>
+          <p>bitcoincash.ee Pool takes a different approach: each round, the <strong>13 highest-difficulty shares</strong> get paid — 1st place takes the largest cut, down through 13th. And on top of that, whoever finds the block walks away with an extra <strong>1 BCH bonus</strong> paid directly to them. Push a high enough share and you're on the board; find the block and you take home even more.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Why Bitcoin Cash and not Bitcoin?</summary>
+          <p>From the beginning of <a href="https://solochance.org" target="_blank" rel="noopener">SoloChance.org</a>, the goal has always been to serve what is underserved — to find the gap the community hasn't filled yet. When SoloChance.org was being built, <a href="https://solochance.com" target="_blank" rel="noopener">SoloChance.com</a> had already been serving Bitcoin solo mining calculations for years. So the gap was Bitcoin Cash, and that's where SoloChance.org went.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is this a financial service?</summary>
+          <p>No — bitcoincash.ee Pool is mining pool software and a coinbase distribution service, not a financial service in any way. It does not accept deposits, hold balances, or manage funds on anyone's behalf. Both the finder bonus and each round's Best Shares payouts are placed directly as outputs in the block's own coinbase transaction by the pool software the moment a block is found — the pool itself is never a party to that transfer.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does the pool custody any coins?</summary>
+          <p>No, it does not custody any coins in any way. Payment is enforced by Bitcoin Cash's own consensus rules through the coinbase transaction, not by the pool operator — the pool software never holds, controls, or has the ability to move, withhold, or redirect any coins at any point.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Has the pool found any blocks?</summary>
+          <p>Yes — the first block was found on August 9, 2026 at 23:18:42, as block #963375. See it and every block found since on the <button class="faq-link-btn" data-section="blocks">Blocks page</button>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do payouts work?</summary>
+          <p>Every time a block is found, three things happen:</p>
+          <ol class="faq-ol">
+            <li><strong>1 BCH</strong> is paid to the miner who found the block, directly in the block's coinbase.</li>
+            <li><strong>2%</strong> of the remaining reward (Block Reward + Tx Fees − 1 BCH) goes to the pool fee.</li>
+            <li>The remaining <strong>98%</strong> is split among the round's <strong>Top 13 Best Shares</strong> — the 13 highest-difficulty shares submitted since the last block: 1st gets 38.3%, 2nd 23.6%, 3rd 14.6%, and 4th–13th get 2.35% each.</li>
+          </ol>
+          <p>The block finder receives the 1 BCH bonus, plus — since a winning share is also the round's best share — their own 1st-place cut of the Top 13 payout, all in that same coinbase transaction. It's fully trustless — no pool-side ledger to trust, and no ongoing bookkeeping.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What is the Top 13 Best Shares payout?</summary>
+          <p>Instead of paying every miner a small proportional amount, each round the pool ranks every share submitted since the last block by difficulty and pays out the 13 highest — 1st place gets 38.3% of the pot, 2nd 23.6%, 3rd 14.6%, and 4th through 13th get 2.35% each. One block found starts a new round; the next block found closes it and triggers the payout. Track the live standings on the <button class="faq-link-btn" data-section="bestshares">Best Shares page</button>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What is the pool fee?</summary>
+          <p>The effective fee is approximately <strong>~1.4%</strong> of the full block reward. The 1 BCH finder bonus is paid completely fee-free. The 2% fee applies only to the remaining distributable reward — so on a 3.125 BCH block, the fee is taken from 2.125 BCH, not the full amount.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>When will I receive my payout?</summary>
+          <p>There's no separate "sending" step — both the 1 BCH finder bonus and your Best Shares payout are placed directly as outputs in that block's own coinbase transaction the moment it's found. Coinbase outputs are spendable after 100 confirmations (~16.5 hours), per standard Bitcoin rules. There's no minimum payout: even 1 sat is paid, and there's no ongoing bookkeeping to wait on.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I connect my miner?</summary>
+          <p>Point your miner at <code>testnet4.bitcoincash.ee:3333</code>. Use your BCH address as the username, optionally followed by a worker name: <code>YOUR_BCH_ADDRESS.workername</code>. Password is <code>x</code>. See the <button class="faq-link-btn" data-section="connect">Connect page</button> for full examples including Bitaxe.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What mining hardware is supported?</summary>
+          <p>Any SHA-256 mining hardware works — ASICs (Antminer, Whatsminer, Bitaxe, nerdQAxe, etc.) and CPU miners (cpuminer-opt). BCH uses the same SHA-256 algorithm as Bitcoin.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I track my stats?</summary>
+          <p>Go to the <button class="faq-link-btn" data-section="mystats">My Stats</button> page and enter your BCH address. It will show your hashrate, shares, and last activity. Stats are only available once the pool node finishes syncing.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do you have a test environment?</summary>
+          <p>Yes — a Testnet4 version of the pool is always running, using the exact same pool software as production. The only difference is it's connected to a testnet4 node instead of mainnet. You can test mining against it at <a href="https://test.bch.ee" target="_blank" rel="noopener">test.bch.ee</a>, and view found test blocks at <a href="https://test.bch.ee/#blocks" target="_blank" rel="noopener">test.bch.ee/#blocks</a>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where is bitcoincash.ee Pool located?</summary>
+          <p>The pool server runs in Frankfurt, Germany. Invoicing and domain purchases are handled through Estonia, thanks to the <a href="https://e-resident.gov.ee" target="_blank" rel="noopener">Estonian e-Residency</a> programme, which allows individuals to access EU digital services without being a resident. The operator lives somewhere else.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Are you part of the OSMU community?</summary>
+          <p><a href="https://osmu.wiki" target="_blank" rel="noopener">OSMU</a> (Open Source Miners United) is a community of people passionate about Bitcoin and open-source mining, built around the belief that knowledge should be shared openly. I was an active member in the early days — it shaped a lot of how I think about mining. Life got busy; learning a new language, preparing to migrate for a better life kept my calendar full, and I gradually became more of a read-only member. But the spirit of that community is very much part of why bitcoincash.ee Pool exists.</p>
+          <p>Honestly, one of the things I feel most held back by is something I had no say in — the passport I was born with. I didn't choose my country any more than anyone chooses where they're born. But the consequences are real: no visa to the US, no free movement in the Schengen area, no Bitcoin conferences in Europe or the UK. If I had been born a US, UK, or German citizen, I have no doubt things would have looked very different — I would have shown up, contributed in person, and been far more active. Until I naturalise somewhere that opens those doors, staying on the sidelines is simply the reality.</p>
+          <p>To make matters more absurd — even importing a $10 Bitaxe accessory is either outright forbidden or burdened with such substantial import taxes and fees that it becomes economically pointless. The hardware that the rest of the world tinkers with freely is effectively out of reach. Until my circumstances change, I'll be channelling my energy into my own products for fun, and my career to survive — and staying out of it.</p>
+          <p>I especially want to thank <a href="https://x.com/skot9000" target="_blank" rel="noopener">@skot9000</a>, <a href="https://x.com/wantclue" target="_blank" rel="noopener">@wantclue</a>, <a href="https://www.rgzen.com/index.php" target="_blank" rel="noopener">RGZ Electronics</a>, and <a href="https://www.thesolomining.co/" target="_blank" rel="noopener">The Solo Mining Co.</a> for their kind early help and everything they contributed to this space.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where can I get help or follow updates?</summary>
+          <p>Join our Telegram group: <a href="https://t.me/bitcoincashee" target="_blank" rel="noopener">t.me/bitcoincashee</a>, or email us at <a href="mailto:hi@bitcoincash.ee">hi@bitcoincash.ee</a>.</p>
+        </details>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="https://t.me/bitcoincashee" target="_blank" rel="noopener" class="tg-footer-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 14.498l-2.95-.924c-.64-.204-.657-.64.136-.948l11.57-4.461c.537-.194 1.006.131.836.083z"/></svg>
+        t.me/bitcoincashee
+      </a>
+      <a href="mailto:hi@bitcoincash.ee" class="email-footer-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        hi@bitcoincash.ee
+      </a>
+      <span class="muted">
+        <a href="/terms.html" style="color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Terms</a>
+        &nbsp;·&nbsp;
+        <a href="/privacy.html" style="color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Privacy</a>
+      </span>
+    </div>
+    <div class="container footer-networks">
+      <div>Mainnet: <a href="https://bitcoincash.ee" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">bitcoincash.ee</a> &mdash; <span class="accent">mainnet.bitcoincash.ee:3333</span></div>
+      <div>Testnet4: <a href="/" style="color:var(--accent);text-decoration:none">test.bch.ee</a> &mdash; <span class="accent">testnet4.bitcoincash.ee:3333</span></div>
+    </div>
+    <div class="container footer-bottom">
+      <div>&copy; 2026 bitcoincash.ee Pool. &middot; a <a href="https://solochance.org" target="_blank" rel="noopener" class="footer-solochance-link">SoloChance.org</a> project</div>
+      <div>Built in 🇪🇪 Estonia &middot; Hosted in 🇩🇪 Germany</div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://test.bch.ee/#website",
+        "url": "https://test.bch.ee/",
+        "name": "bitcoincash.ee Pool",
+        "description": "The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Top 13 Best Shares payout.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://test.bch.ee/#organization",
+        "name": "bitcoincash.ee Pool",
+        "url": "https://test.bch.ee/",
+        "logo": "https://test.bch.ee/apple-touch-icon.png",
+        "sameAs": [
+          "https://t.me/bitcoincashee",
+          "https://solochance.org"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "url": "https://t.me/bitcoincashee",
+          "email": "hi@bitcoincash.ee"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://test.bch.ee/faq.html#faqpage",
+        "url": "https://test.bch.ee/faq.html",
+        "name": "FAQ — bitcoincash.ee Pool",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is bitcoincash.ee Pool?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "bitcoincash.ee Pool is a Bitcoin Cash (BCH) mining pool that combines a 1 BCH block finder bonus with a Top 13 Best Shares payout for the round's leading miners. It is run by the developer of SoloChance.org and is currently in beta."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What makes this pool different from a regular BCH pool?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most mining pools fall into one of two camps: solo pools, where you chase the full block reward alone with no guarantees, or proportional pools, where rewards are shared steadily but there is nothing to get excited about. bitcoincash.ee Pool takes a different approach: each round, the 13 highest-difficulty shares get paid \u2014 1st place takes the largest cut, down through 13th. And on top of that, whoever finds the block walks away with an extra 1 BCH bonus paid directly to them. Push a high enough share and you're on the board; find the block and you take home even more."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why Bitcoin Cash and not Bitcoin?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "From the beginning of SoloChance.org, the goal has always been to serve what is underserved \u2014 to find the gap the community hasn't filled yet. When SoloChance.org was being built, SoloChance.com had already been serving Bitcoin solo mining calculations for years. So the gap was Bitcoin Cash, and that's where SoloChance.org went."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this a financial service?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No \u2014 bitcoincash.ee Pool is mining pool software and a coinbase distribution service, not a financial service in any way. It does not accept deposits, hold balances, or manage funds on anyone's behalf. Both the finder bonus and each round's Best Shares payouts are placed directly as outputs in the block's own coinbase transaction by the pool software the moment a block is found \u2014 the pool itself is never a party to that transfer."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the pool custody any coins?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No, it does not custody any coins in any way. Payment is enforced by Bitcoin Cash's own consensus rules through the coinbase transaction, not by the pool operator \u2014 the pool software never holds, controls, or has the ability to move, withhold, or redirect any coins at any point."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Has the pool found any blocks?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes \u2014 the first block was found on August 9, 2026 at 23:18:42, as block #963375. See it and every block found since on the Blocks page."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do payouts work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every time a block is found, three things happen: 1 BCH is paid to the miner who found the block, directly in the block's coinbase; 2% of the remaining reward (Block Reward + Tx Fees \u2212 1 BCH) goes to the pool fee; the remaining 98% is split among the round's Top 13 Best Shares \u2014 the 13 highest-difficulty shares submitted since the last block: 1st gets 38.3%, 2nd 23.6%, 3rd 14.6%, and 4th\u201313th get 2.35% each. The block finder receives the 1 BCH bonus, plus \u2014 since a winning share is also the round's best share \u2014 their own 1st-place cut of the Top 13 payout, all in that same coinbase transaction. It's fully trustless \u2014 no pool-side ledger to trust, and no ongoing bookkeeping."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the Top 13 Best Shares payout?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Instead of paying every miner a small proportional amount, each round the pool ranks every share submitted since the last block by difficulty and pays out the 13 highest \u2014 1st place gets 38.3% of the pot, 2nd 23.6%, 3rd 14.6%, and 4th through 13th get 2.35% each. One block found starts a new round; the next block found closes it and triggers the payout."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the pool fee?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The effective fee is approximately ~1.4% of the full block reward. The 1 BCH finder bonus is paid completely fee-free. The 2% fee applies only to the remaining distributable reward \u2014 so on a 3.125 BCH block, the fee is taken from 2.125 BCH, not the full amount."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When will I receive my payout?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "There's no separate \"sending\" step \u2014 both the 1 BCH finder bonus and your Best Shares payout are placed directly as outputs in that block's own coinbase transaction the moment it's found. Coinbase outputs are spendable after 100 confirmations (~16.5 hours), per standard Bitcoin rules. There's no minimum payout: even 1 sat is paid, and there's no ongoing bookkeeping to wait on."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I connect my miner?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Point your miner at testnet4.bitcoincash.ee:3333. Use your BCH address as the username, optionally followed by a worker name: YOUR_BCH_ADDRESS.workername. Password is x. See the Connect page for full examples including Bitaxe."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What mining hardware is supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Any SHA-256 mining hardware works \u2014 ASICs (Antminer, Whatsminer, Bitaxe, nerdQAxe, etc.) and CPU miners (cpuminer-opt). BCH uses the same SHA-256 algorithm as Bitcoin."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I track my stats?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Go to the My Stats page and enter your BCH address. It will show your hashrate, shares, and last activity. Stats are only available once the pool node finishes syncing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you have a test environment?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes \u2014 a Testnet4 version of the pool is always running, using the exact same pool software as production. The only difference is it's connected to a testnet4 node instead of mainnet. You can test mining against it at test.bch.ee, and view found test blocks at test.bch.ee/#blocks."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where is bitcoincash.ee Pool located?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The pool server runs in Frankfurt, Germany. Invoicing and domain purchases are handled through Estonia, thanks to the Estonian e-Residency programme, which allows individuals to access EU digital services without being a resident. The operator lives somewhere else."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where can I get help or follow updates?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Join our Telegram group: t.me/bitcoincashee, or email us at hi@bitcoincash.ee."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
