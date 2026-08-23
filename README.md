@@ -64,9 +64,9 @@ The frontend is a static site with no build step:
 
 ## Links
 
-- **Website**: [test.bch.ee](https://test.bch.ee)
+- **Website**: [test.bitcoincash.ee](https://test.bitcoincash.ee)
 - **Telegram**: [t.me/bitcoincashee](https://t.me/bitcoincashee)
-- **FAQ**: [test.bch.ee/faq.html](https://test.bch.ee/faq.html)
+- **FAQ**: [test.bitcoincash.ee/faq.html](https://test.bitcoincash.ee/faq.html)
 
 ## License
 
