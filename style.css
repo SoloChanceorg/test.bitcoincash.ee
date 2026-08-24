@@ -1113,6 +1113,8 @@ code.connect-value {
   padding: 1.1rem 1.4rem;
 }
 
+.disclaimer > div { min-width: 0; }
+
 .disclaimer-icon { font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
 
 .disclaimer strong {
@@ -1127,6 +1129,11 @@ code.connect-value {
   font-size: .85rem;
   line-height: 1.6;
   margin: 0;
+}
+
+.disclaimer code {
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 /* ── Workers Table ── */
