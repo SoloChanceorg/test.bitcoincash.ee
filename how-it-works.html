@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works — bitcoincash.ee Pool | Bitcoin Cash Mining Pool</title>
+  <meta name="description" content="How bitcoincash.ee Pool works: submit shares, climb the Top 13 Best Shares leaderboard, and get paid directly in the block's coinbase. The world's first Bitcoin Cash mining meta-game." />
+  <meta property="og:title" content="How It Works — bitcoincash.ee Pool" />
+  <meta property="og:description" content="Submit shares, climb the Top 13 Best Shares leaderboard, and get paid directly in the block's coinbase. The world's first Bitcoin Cash mining meta-game." />
+  <meta property="og:url" content="https://test.bitcoincash.ee/how-it-works.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="bitcoincash.ee Pool" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How It Works — bitcoincash.ee Pool" />
+  <meta name="twitter:description" content="Submit shares, climb the Top 13 Best Shares leaderboard, and get paid directly in the block's coinbase. The world's first Bitcoin Cash mining meta-game." />
+  <link rel="canonical" href="https://test.bitcoincash.ee/how-it-works.html" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Ubuntu+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="site-topbar">
+  <div class="testnet-banner" role="alert">This is the Testnet4 version of bitcoincash.ee Pool &middot; Mainnet coming soon</div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img src="logo.svg" alt="bitcoincash.ee Pool" class="logo-icon" />
+        <span class="logo-text"><span class="accent">bitcoincash.ee</span> Pool</span>
+      </a>
+      <nav class="nav">
+        <a href="/" class="nav-btn">Home</a>
+        <a href="/how-it-works.html" class="nav-btn active">How It Works</a>
+        <a href="/#connect" class="nav-btn">Connect</a>
+        <a href="/#mystats" class="nav-btn">My Stats</a>
+        <a href="/#bestshares" class="nav-btn">Best Shares</a>
+        <a href="/#blocks" class="nav-btn">Blocks</a>
+        <a href="/faq.html" class="nav-btn">FAQ</a>
+      </nav>
+    </div>
+  </header>
+  </div>
+
+  <main class="container">
+
+    <div class="hero">
+      <div class="byline">
+        <span class="byline-part">Brand new &mdash; the world's second Stratum game after <a href="https://solo100.org" target="_blank" rel="noopener" class="byline-link">solo100.org</a>, and the world's first Bitcoin Cash mining meta-game.</span>
+      </div>
+      <h1>How <span class="accent">bitcoincash.ee Pool</span> Works</h1>
+      <p class="hero-sub">A Bitcoin Cash mining pool built like a game: every share you submit competes for a spot on the round's leaderboard, and every block pays out instantly in its own coinbase &mdash; no accounts, no waiting, no trust required.</p>
+    </div>
+
+    <div class="section-title" style="margin-top:2rem">The Game</div>
+    <div class="card info-card">
+      <div class="info-icon">🎮</div>
+      <div class="info-title">It is more like a game, less like a pool</div>
+      <div class="info-desc">
+        <p>Most mining pools fall into one of two camps: <strong>solo pools</strong>, where you chase the full block reward alone with long odds and nothing until you win, or <strong>proportional pools</strong>, where rewards trickle in steadily but there's nothing to get excited about.</p>
+        <p style="margin-top:.65rem">bitcoincash.ee Pool turns mining into a live scoreboard. Every share you submit is ranked by difficulty against everyone else's since the last block. Push a high enough share and you land on the <strong>Top 13 Best Shares</strong> board &mdash; and you get paid when the round ends, whether or not you're the one who actually finds the block. Find the block yourself, and you <em>also</em> walk away with a flat <strong>1 BCH bonus</strong> on top. One round, two ways to win.</p>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:2.5rem">Every Block, 1 BCH Finder Bonus, Top 3 Big Wins, Following 10 Consolation Prizes</div>
+    <div class="card info-card">
+      <div class="info-icon">🧱</div>
+      <div class="info-title">What Happens the Moment a Block Is Found</div>
+      <div class="info-desc">
+        <ol class="faq-ol">
+          <li><strong>2% Pool Fee</strong> &mdash; taken first, straight off the full block reward (Block Reward + Tx Fees).</li>
+          <li><strong>1 BCH Finder Bonus</strong> &mdash; paid next, directly to whoever found the block, straight in the coinbase.</li>
+          <li><strong>Whatever remains</strong> &mdash; split among the round's 13 highest-difficulty shares: 1st gets 38.3%, 2nd 23.6%, 3rd 14.6%, and 4th&ndash;13th get 2.35% each.</li>
+        </ol>
+        <p style="margin-top:.75rem">Everything lands as outputs in that same coinbase transaction &mdash; no pool-side ledger and no separate payout run.</p>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:2.5rem">Example Distribution</div>
+    <div class="card">
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:1.25rem">Worked out on the current <strong style="color:var(--text)">3.125 BCH</strong> block subsidy, so you can see how the split works before any transaction fees are added.</p>
+
+      <div style="font-size:.9rem;font-weight:500;margin-bottom:.5rem">Per-Block Split</div>
+      <div style="overflow-x:auto">
+        <table class="workers-table">
+          <thead>
+            <tr><th>Component</th><th>Share</th><th>Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Pool Fee</td><td>2% of block reward</td><td>0.0625 BCH</td></tr>
+            <tr><td>1 BCH Finder Bonus</td><td>fixed</td><td>1 BCH</td></tr>
+            <tr><td>Top 13 Best Shares Pot</td><td>remainder</td><td>2.0625 BCH</td></tr>
+            <tr><td><strong style="color:var(--text)">Total</strong></td><td>100%</td><td><strong style="color:var(--text)">3.125 BCH</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="font-size:.9rem;font-weight:500;margin:1.75rem 0 .5rem">Top 13 Best Shares Pot Split</div>
+      <div style="overflow-x:auto">
+        <table class="workers-table">
+          <thead>
+            <tr><th>Rank</th><th>Share of Pot</th><th>Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>🥇 1st</td><td>38.3%</td><td>0.78993750 BCH</td></tr>
+            <tr><td>🥈 2nd</td><td>23.6%</td><td>0.48675000 BCH</td></tr>
+            <tr><td>🥉 3rd</td><td>14.6%</td><td>0.30112500 BCH</td></tr>
+            <tr><td>4th&ndash;13th (each)</td><td>2.35%</td><td>0.04846875 BCH</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="disclaimer" style="margin-top:1.5rem">
+        <span class="disclaimer-icon">📝</span>
+        <div>
+          <strong>Note</strong>
+          <p>These figures show a plain 3.125 BCH block reward only, with no transaction fees or USD values involved &mdash; just to give an idea of the distribution. On top of that, whatever transaction fees are collected in the block will be added to the pot and split the same way, except the block finder's 1 BCH bonus, which stays a fixed 1 BCH no matter how much transaction fees add to the block.</p>
+          <p style="margin-top:.5rem">If splitting the pot leaves a leftover dust satoshi because the amount doesn't divide evenly, the block finder receives that dust too.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:2.5rem">Ready to Play?</div>
+    <div class="card" style="display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between">
+      <p style="color:var(--muted);margin:0">Point your miner at the pool and see where your best share lands.</p>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <a href="/#connect" class="nav-btn" style="background:var(--accent-dim);color:var(--accent)">Connect Your Miner →</a>
+        <a href="/#bestshares" class="nav-btn">See Current Best Shares →</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="https://t.me/bitcoincashee" target="_blank" rel="noopener" class="tg-footer-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 14.498l-2.95-.924c-.64-.204-.657-.64.136-.948l11.57-4.461c.537-.194 1.006.131.836.083z"/></svg>
+        t.me/bitcoincashee
+      </a>
+      <a href="mailto:hi@bitcoincash.ee" class="email-footer-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        hi@bitcoincash.ee
+      </a>
+      <span class="muted">
+        <a href="/terms.html" style="color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Terms</a>
+        &nbsp;·&nbsp;
+        <a href="/privacy.html" style="color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Privacy</a>
+      </span>
+    </div>
+    <div class="container footer-networks">
+      <div>Mainnet: <a href="https://bitcoincash.ee" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">bitcoincash.ee</a> &mdash; <span class="accent">mainnet.bitcoincash.ee:3333</span></div>
+      <div>Testnet4: <a href="/" style="color:var(--accent);text-decoration:none">test.bitcoincash.ee</a> &mdash; <span class="accent">testnet4.bitcoincash.ee:3333</span></div>
+    </div>
+    <div class="container footer-bottom">
+      <div>&copy; 2026 bitcoincash.ee Pool. &middot; a <a href="https://solochance.org" target="_blank" rel="noopener" class="footer-solochance-link">SoloChance.org</a> project</div>
+      <div>Built in 🇪🇪 Estonia &middot; Hosted in 🇩🇪 Germany</div>
+    </div>
+  </footer>
+</body>
+</html>
