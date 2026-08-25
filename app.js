@@ -89,6 +89,11 @@ let userPayoutShare  = null;  // BCH payout if someone else finds block
 let bchPrice         = null;  // BCH price in USD
 let blocksLoaded     = false;
 let bestSharesLoaded = false;
+let bsSortCol = 'bestshare'; // 'bestshare' | 'hashrate' — Best Share is the default sort
+let bsSortDir = 'desc';      // 'desc' | 'asc'
+let bsTop13 = null;          // cached rows for re-sorting without refetching
+let bsRest  = null;
+let bsFinder = null, bsPoolFee = null, bsNetworkDiff = null;
 const BLOCKS_PAGE_SIZE = 10;
 let allBlockEntries   = null; // newest-first, populated once per page load
 let currentBlocksPage = 1;
@@ -1207,6 +1212,97 @@ async function getMyTopShareEntry(address) {
   };
 }
 
+const bsMedals = ['🥇', '🥈', '🥉'];
+
+function bsUsdCell(btc) {
+  const usd = formatUsd(btc);
+  return usd ? `<div class="bs-payout-usd">${usd}</div>` : '';
+}
+
+// Block Finder / Pool Fee rows: no rank, no hashrate/best-share/net-diff —
+// just a label in the Address column and the payout amount.
+function renderBsSpecialRow(label, btc) {
+  return `<tr>
+    <td></td>
+    <td>${escapeHtml(label)}</td>
+    <td></td>
+    <td class="col-bs"></td>
+    <td class="col-bs"></td>
+    <td class="col-payout">${formatBch(btc)}${bsUsdCell(btc)}</td>
+  </tr>`;
+}
+
+function renderBsShareRow(r, networkDiff, includePayout) {
+  const pct = (r.bestshare / networkDiff * 100);
+  const pctRaw = pct >= 0.001 ? pct.toFixed(3) + '%' : '&lt; 0.001%';
+  const pctTip = pct > 100
+    ? ` <span class="info-tip" data-tip="This share was sent before the last target was lowered">i</span>`
+    : '';
+  const idle = !r.lastshare || (Date.now() / 1000 - r.lastshare) >= 300;
+  const icon = idle ? '<span class="miner-idle-icon">💤</span>' : '<span class="miner-active-icon">⛏️</span>';
+  const medal = r.rank <= 3 ? bsMedals[r.rank - 1] : null;
+  const bsCell = medal ? medal + ' ' + formatDiffCompact(r.bestshare) : formatDiffCompact(r.bestshare);
+  const payoutCell = includePayout ? `${formatBch(r.btc)}${bsUsdCell(r.btc)}` : '—';
+  return `<tr>
+    <td>${r.rank}</td>
+    <td><code class="bs-address" data-address="${escapeHtml(r.address)}">${escapeHtml(r.address)}</code></td>
+    <td>${icon} ${escapeHtml(parseHashrateStr(r.hashrate1m))}</td>
+    <td class="col-bs">${bsCell}</td>
+    <td class="col-bs">${pctRaw}${pctTip}</td>
+    <td class="col-payout">${payoutCell}</td>
+  </tr>`;
+}
+
+// Sorts a copy of `rows` by the current bsSortCol/bsSortDir — used to reorder
+// the Top 13 block and the "rest" block independently, so the two groups
+// never merge into each other.
+function sortBsRows(rows) {
+  const sorted = rows.slice();
+  const dir = bsSortDir === 'asc' ? 1 : -1;
+  sorted.sort((a, b) => {
+    const va = bsSortCol === 'hashrate' ? hashrateToHps(a.hashrate1m) : a.bestshare;
+    const vb = bsSortCol === 'hashrate' ? hashrateToHps(b.hashrate1m) : b.bestshare;
+    return (va - vb) * dir;
+  });
+  return sorted;
+}
+
+function bsSortArrow(col) {
+  if (bsSortCol !== col) return '';
+  return bsSortDir === 'desc' ? ' ▼' : ' ▲';
+}
+
+function renderBsPayoutsTable() {
+  const payoutsTable = document.getElementById('bs-payouts-table');
+  if (!payoutsTable || !bsTop13 || !bsRest) return;
+
+  const cutoffRow = bsRest.length > 0 ? `
+    <tr class="bs-cutoff-row"><td colspan="6"><div class="bs-cutoff-inner">
+      <span class="bs-cutoff-line"></span>
+      Top 13 cutoff — addresses below earn no payout this round
+      <span class="bs-cutoff-line"></span>
+    </div></td></tr>` : '';
+
+  const sortedTop13 = sortBsRows(bsTop13);
+  const sortedRest = sortBsRows(bsRest);
+
+  payoutsTable.innerHTML = `
+    <thead><tr>
+      <th>#</th><th>Address</th>
+      <th class="bs-sortable" data-sort="hashrate">Hashrate${bsSortArrow('hashrate')}</th>
+      <th class="col-bs bs-sortable" data-sort="bestshare">Best Share${bsSortArrow('bestshare')}</th>
+      <th class="col-bs">% of Net Diff</th>
+      <th class="col-payout">Payout</th>
+    </tr></thead>
+    <tbody>
+      ${renderBsSpecialRow('🏆 Block Finder', bsFinder?.btc)}
+      ${renderBsSpecialRow('Pool Fee', bsPoolFee?.btc)}
+      ${sortedTop13.map(r => renderBsShareRow(r, bsNetworkDiff, true)).join('')}
+      ${cutoffRow}
+      ${sortedRest.map(r => renderBsShareRow(r, bsNetworkDiff, false)).join('')}
+    </tbody>`;
+}
+
 async function loadBestShares() {
   if (bestSharesLoaded) return;
   bestSharesLoaded = true;
@@ -1215,47 +1311,6 @@ async function loadBestShares() {
   const content = document.getElementById('bestshares-content');
   const totalTable = document.getElementById('bs-total-table');
   const payoutsTable = document.getElementById('bs-payouts-table');
-
-  const bsMedals = ['🥇', '🥈', '🥉'];
-
-  function usdCell(btc) {
-    const usd = formatUsd(btc);
-    return usd ? `<div class="bs-payout-usd">${usd}</div>` : '';
-  }
-
-  // Block Finder / Pool Fee rows: no rank, no hashrate/best-share/net-diff —
-  // just a label in the Address column and the payout amount.
-  function renderSpecialRow(label, btc) {
-    return `<tr>
-      <td></td>
-      <td>${escapeHtml(label)}</td>
-      <td></td>
-      <td class="col-bs"></td>
-      <td class="col-bs"></td>
-      <td class="col-payout">${formatBch(btc)}${usdCell(btc)}</td>
-    </tr>`;
-  }
-
-  function renderShareRow(r, networkDiff, includePayout) {
-    const pct = (r.bestshare / networkDiff * 100);
-    const pctRaw = pct >= 0.001 ? pct.toFixed(3) + '%' : '&lt; 0.001%';
-    const pctTip = pct > 100
-      ? ` <span class="info-tip" data-tip="This share was sent before the last target was lowered">i</span>`
-      : '';
-    const idle = !r.lastshare || (Date.now() / 1000 - r.lastshare) >= 300;
-    const icon = idle ? '<span class="miner-idle-icon">💤</span>' : '<span class="miner-active-icon">⛏️</span>';
-    const medal = r.rank <= 3 ? bsMedals[r.rank - 1] : null;
-    const bsCell = medal ? medal + ' ' + formatDiffCompact(r.bestshare) : formatDiffCompact(r.bestshare);
-    const payoutCell = includePayout ? `${formatBch(r.btc)}${usdCell(r.btc)}` : '—';
-    return `<tr>
-      <td>${r.rank}</td>
-      <td><code class="bs-address" data-address="${escapeHtml(r.address)}">${escapeHtml(r.address)}</code></td>
-      <td>${icon} ${escapeHtml(parseHashrateStr(r.hashrate1m))}</td>
-      <td class="col-bs">${bsCell}</td>
-      <td class="col-bs">${pctRaw}${pctTip}</td>
-      <td class="col-payout">${payoutCell}</td>
-    </tr>`;
-  }
 
   try {
     const [{ finder, poolFee, ranked }, statusResp] = await Promise.all([
@@ -1281,36 +1336,32 @@ async function loadBestShares() {
       <thead><tr><th>Total</th><th>Amount</th></tr></thead>
       <tbody><tr>
         <td>Sum of all coinbase outputs this round</td>
-        <td>${formatBch(totalBtc)}${usdCell(totalBtc)}</td>
+        <td>${formatBch(totalBtc)}${bsUsdCell(totalBtc)}</td>
       </tr></tbody>`;
 
     // Payout breakdown — Block Finder, Pool Fee, Top 13 Ranks, then the rest
-    const top13 = ranked.filter(r => r.rank <= 13);
-    const rest = ranked.filter(r => r.rank > 13);
+    bsFinder = finder;
+    bsPoolFee = poolFee;
+    bsNetworkDiff = networkDiff;
+    bsTop13 = ranked.filter(r => r.rank <= 13);
+    bsRest = ranked.filter(r => r.rank > 13);
 
-    const cutoffRow = rest.length > 0 ? `
-      <tr class="bs-cutoff-row"><td colspan="6"><div class="bs-cutoff-inner">
-        <span class="bs-cutoff-line"></span>
-        Top 13 cutoff — addresses below earn no payout this round
-        <span class="bs-cutoff-line"></span>
-      </div></td></tr>` : '';
+    renderBsPayoutsTable();
 
-    payoutsTable.innerHTML = `
-      <thead><tr>
-        <th>#</th><th>Address</th><th>Hashrate</th>
-        <th class="col-bs">Best Share</th><th class="col-bs">% of Net Diff</th>
-        <th class="col-payout">Payout</th>
-      </tr></thead>
-      <tbody>
-        ${renderSpecialRow('🏆 Block Finder', finder?.btc)}
-        ${renderSpecialRow('Pool Fee', poolFee?.btc)}
-        ${top13.map(r => renderShareRow(r, networkDiff, true)).join('')}
-        ${cutoffRow}
-        ${rest.map(r => renderShareRow(r, networkDiff, false)).join('')}
-      </tbody>`;
-
-    // Delegate address clicks from the whole content block
+    // Delegate sort-header clicks and address clicks from the whole content block
     content.addEventListener('click', e => {
+      const sortEl = e.target.closest('.bs-sortable');
+      if (sortEl) {
+        const col = sortEl.dataset.sort;
+        if (bsSortCol === col) {
+          bsSortDir = bsSortDir === 'desc' ? 'asc' : 'desc';
+        } else {
+          bsSortCol = col;
+          bsSortDir = 'desc';
+        }
+        renderBsPayoutsTable();
+        return;
+      }
       const addrEl = e.target.closest('.bs-address');
       if (addrEl) goToMyStats(addrEl.dataset.address);
     });

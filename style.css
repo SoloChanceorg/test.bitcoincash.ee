@@ -1250,6 +1250,13 @@ code.connect-value {
 #bs-payouts-table thead .col-bs     { border-top: 2px solid rgba(10, 193, 142, 0.18); }
 #bs-payouts-table thead .col-payout { border-top: 2px solid rgba(240, 180, 41, 0.18); }
 
+#bs-payouts-table thead .bs-sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+#bs-payouts-table thead .bs-sortable:hover { color: var(--accent); }
+
 /* Best Shares — cutoff divider between the last paid rank and the rest of
    the list, styled after solo100.org's "Best 100 Cutoff" row. */
 .bs-cutoff-row td {
