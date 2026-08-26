@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>bitcoincash.ee Pool — Bitcoin Cash Mining Pool</title>
-  <meta name="description" content="The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Top 13 Best Shares payout. 2% pool fee. testnet4.bitcoincash.ee:3333" />
+  <meta name="description" content="The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Best 13 payout. 2% pool fee. testnet4.bitcoincash.ee:3333" />
   <meta property="og:title" content="bitcoincash.ee Pool — Bitcoin Cash Mining Pool" />
-  <meta property="og:description" content="The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Top 13 Best Shares payout. 2% pool fee. testnet4.bitcoincash.ee:3333" />
+  <meta property="og:description" content="The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Best 13 payout. 2% pool fee. testnet4.bitcoincash.ee:3333" />
   <meta property="og:url" content="https://test.bitcoincash.ee" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="bitcoincash.ee Pool" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="bitcoincash.ee Pool — Bitcoin Cash Mining Pool" />
-  <meta name="twitter:description" content="The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Top 13 Best Shares payout." />
+  <meta name="twitter:description" content="The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Best 13 payout." />
   <link rel="canonical" href="https://test.bitcoincash.ee/" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="logo.svg" />
@@ -39,7 +39,7 @@
         <a href="/how-it-works.html" class="nav-btn">How It Works</a>
         <button class="nav-btn" data-section="connect">Connect</button>
         <button class="nav-btn" data-section="mystats">My Stats</button>
-        <button class="nav-btn" data-section="bestshares">Best Shares</button>
+        <button class="nav-btn" data-section="bestshares">Best 13</button>
         <button class="nav-btn" data-section="blocks">Blocks</button>
         <a href="/faq.html" class="nav-btn">FAQ</a>
       </nav>
@@ -177,7 +177,7 @@
               <li><span class="payout-amount">2%</span> pool fee</li>
               <li><span class="payout-amount">1 BCH</span> Finder Bonus</li>
             </ul>
-            <p style="margin-top:.65rem">The rest is the prize pot, paid to the 13 Best Shares of the round:</p>
+            <p style="margin-top:.65rem">The rest is the prize pot, paid to the Best 13 of the round:</p>
             <ul class="payout-order">
               <li>🥇 1st place: <span class="payout-amount">38.3%</span> of the pot</li>
               <li>🥈 2nd place: <span class="payout-amount">23.6%</span></li>
@@ -576,8 +576,8 @@
         </div>
       </div>
 
-      <p id="user-payout-note" class="hidden" style="color:var(--muted);font-size:.8rem;margin-top:1rem">These are estimates based on current round data and your rank on the Best Shares board. Actual payouts may differ.</p>
-      <p id="user-payout-unranked" class="hidden" style="color:var(--muted);font-size:.8rem;margin-top:1rem">Your current best share isn't in this round's paid Top 13 yet — keep mining to climb the <button class="faq-link-btn" data-section="bestshares">Best Shares board</button>.</p>
+      <p id="user-payout-note" class="hidden" style="color:var(--muted);font-size:.8rem;margin-top:1rem">These are estimates based on current round data and your rank on the Best 13 board. Actual payouts may differ.</p>
+      <p id="user-payout-unranked" class="hidden" style="color:var(--muted);font-size:.8rem;margin-top:1rem">Your current best share isn't in this round's paid Best 13 yet — keep mining to climb the <button class="faq-link-btn" data-section="bestshares">Best 13 board</button>.</p>
       <div id="user-payout-grid" class="card-grid hidden" style="margin-top:.5rem">
         <div class="card stat-card">
           <div class="stat-label">If you find the block</div>
@@ -587,7 +587,7 @@
         <div class="card stat-card">
           <div class="stat-label">If someone else finds it</div>
           <div class="stat-value" id="user-payout-share" style="font-size:1.3rem">—</div>
-          <div class="stat-change" id="user-payout-share-usd" style="color:var(--muted);font-size:.75rem">your Best Shares rank payout</div>
+          <div class="stat-change" id="user-payout-share-usd" style="color:var(--muted);font-size:.75rem">your Best 13 rank payout</div>
         </div>
       </div>
 
@@ -644,8 +644,8 @@
     <!-- BEST SHARES SECTION -->
     <section id="bestshares" class="section">
       <div class="hero">
-        <h1>Current Best <span class="accent">Shares</span></h1>
-        <p class="hero-sub">Live preview of this round's coinbase split, straight from the pool node. <strong>Best Share</strong> and <strong>% of Net Diff</strong> show how close each miner has come to solving a block — a share reaching 100% solves it. Only the top 13 ranks get paid.</p>
+        <h1>Current <span class="accent">Best 13</span></h1>
+        <p class="hero-sub">Live preview of this round's coinbase split, straight from the pool node. <strong>Best Share</strong> and <strong>% of Net Diff</strong> show how close each miner has come to solving a block — a share reaching 100% solves it. Only the Best 13 get paid.</p>
       </div>
       <div id="bestshares-loading" class="card text-center">Loading...</div>
       <div id="bestshares-content" class="hidden">
@@ -678,7 +678,7 @@
 
         <details class="faq-item">
           <summary>What is bitcoincash.ee Pool?</summary>
-          <p>bitcoincash.ee Pool is a Bitcoin Cash (BCH) mining pool that combines a 1 BCH block finder bonus with a Top 13 Best Shares payout for the round's leading miners. It is run by the developer of <a href="https://solochance.org" target="_blank" rel="noopener">SoloChance.org</a> and is currently in beta.</p>
+          <p>bitcoincash.ee Pool is a Bitcoin Cash (BCH) mining pool that combines a 1 BCH block finder bonus with a Best 13 payout for the round's leading miners. It is run by the developer of <a href="https://solochance.org" target="_blank" rel="noopener">SoloChance.org</a> and is currently in beta.</p>
         </details>
 
         <details class="faq-item">
@@ -694,7 +694,7 @@
 
         <details class="faq-item">
           <summary>Is this a financial service?</summary>
-          <p>No — bitcoincash.ee Pool is mining pool software and a coinbase distribution service, not a financial service in any way. It does not accept deposits, hold balances, or manage funds on anyone's behalf. Both the finder bonus and each round's Best Shares payouts are placed directly as outputs in the block's own coinbase transaction by the pool software the moment a block is found — the pool itself is never a party to that transfer.</p>
+          <p>No — bitcoincash.ee Pool is mining pool software and a coinbase distribution service, not a financial service in any way. It does not accept deposits, hold balances, or manage funds on anyone's behalf. Both the finder bonus and each round's Best 13 payouts are placed directly as outputs in the block's own coinbase transaction by the pool software the moment a block is found — the pool itself is never a party to that transfer.</p>
         </details>
 
         <details class="faq-item">
@@ -713,24 +713,24 @@
           <ol class="faq-ol">
             <li><strong>2%</strong> of the full block reward (Block Reward + Tx Fees) goes to the pool fee.</li>
             <li><strong>1 BCH</strong> is then paid to the miner who found the block, directly in the block's coinbase.</li>
-            <li>Whatever remains is split among the round's <strong>Top 13 Best Shares</strong> — the 13 highest-difficulty shares submitted since the last block: 1st gets 38.3%, 2nd 23.6%, 3rd 14.6%, and 4th–13th get 2.35% each.</li>
+            <li>Whatever remains is split among the round's <strong>Best 13</strong> — the 13 highest-difficulty shares submitted since the last block: 1st gets 38.3%, 2nd 23.6%, 3rd 14.6%, and 4th–13th get 2.35% each.</li>
           </ol>
-          <p>The block finder receives the 1 BCH bonus, plus — since a winning share is also the round's best share — their own 1st-place cut of the Top 13 payout, all in that same coinbase transaction. It's fully trustless — no pool-side ledger to trust, and no ongoing bookkeeping.</p>
+          <p>The block finder receives the 1 BCH bonus, plus — since a winning share is also the round's best share — their own 1st-place cut of the Best 13 payout, all in that same coinbase transaction. It's fully trustless — no pool-side ledger to trust, and no ongoing bookkeeping.</p>
         </details>
 
         <details class="faq-item">
-          <summary>What is the Top 13 Best Shares payout?</summary>
-          <p>Instead of paying every miner a small proportional amount, each round the pool ranks every share submitted since the last block by difficulty and pays out the 13 highest — 1st place gets 38.3% of the pot, 2nd 23.6%, 3rd 14.6%, and 4th through 13th get 2.35% each. One block found starts a new round; the next block found closes it and triggers the payout. Track the live standings on the <button class="faq-link-btn" data-section="bestshares">Best Shares page</button>.</p>
+          <summary>What is the Best 13 payout?</summary>
+          <p>Instead of paying every miner a small proportional amount, each round the pool ranks every share submitted since the last block by difficulty and pays out the 13 highest — 1st place gets 38.3% of the pot, 2nd 23.6%, 3rd 14.6%, and 4th through 13th get 2.35% each. One block found starts a new round; the next block found closes it and triggers the payout. Track the live standings on the <button class="faq-link-btn" data-section="bestshares">Best 13 page</button>.</p>
         </details>
 
         <details class="faq-item">
           <summary>What is the pool fee?</summary>
-          <p>The pool fee is a flat <strong>2%</strong> of the full block reward (Block Reward + Tx Fees), taken before the 1 BCH finder bonus and the Top 13 Best Shares payout are calculated.</p>
+          <p>The pool fee is a flat <strong>2%</strong> of the full block reward (Block Reward + Tx Fees), taken before the 1 BCH finder bonus and the Best 13 payout are calculated.</p>
         </details>
 
         <details class="faq-item">
           <summary>When will I receive my payout?</summary>
-          <p>There's no separate "sending" step — both the 1 BCH finder bonus and your Best Shares payout are placed directly as outputs in that block's own coinbase transaction the moment it's found. Coinbase outputs are spendable after 100 confirmations (~16.5 hours), per standard Bitcoin rules, and there's no ongoing bookkeeping to wait on.</p>
+          <p>There's no separate "sending" step — both the 1 BCH finder bonus and your Best 13 payout are placed directly as outputs in that block's own coinbase transaction the moment it's found. Coinbase outputs are spendable after 100 confirmations (~16.5 hours), per standard Bitcoin rules, and there's no ongoing bookkeeping to wait on.</p>
         </details>
 
         <details class="faq-item">
@@ -803,7 +803,7 @@
         "@id": "https://test.bitcoincash.ee/#website",
         "url": "https://test.bitcoincash.ee/",
         "name": "bitcoincash.ee Pool",
-        "description": "The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Top 13 Best Shares payout.",
+        "description": "The most exciting SHA-256 pool to join. Mine Bitcoin Cash with a 1 BCH block finder bonus and a Best 13 payout.",
         "inLanguage": "en"
       },
       {
@@ -834,7 +834,7 @@
             "name": "What is bitcoincash.ee Pool?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "bitcoincash.ee Pool is a Bitcoin Cash (BCH) mining pool that combines a 1 BCH block finder bonus with a Top 13 Best Shares payout for the round's leading miners. It is run by the developer of SoloChance.org and is currently in beta."
+              "text": "bitcoincash.ee Pool is a Bitcoin Cash (BCH) mining pool that combines a 1 BCH block finder bonus with a Best 13 payout for the round's leading miners. It is run by the developer of SoloChance.org and is currently in beta."
             }
           },
           {
@@ -858,7 +858,7 @@
             "name": "Is this a financial service?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No \u2014 bitcoincash.ee Pool is mining pool software and a coinbase distribution service, not a financial service in any way. It does not accept deposits, hold balances, or manage funds on anyone's behalf. Both the finder bonus and each round's Best Shares payouts are placed directly as outputs in the block's own coinbase transaction by the pool software the moment a block is found \u2014 the pool itself is never a party to that transfer."
+              "text": "No \u2014 bitcoincash.ee Pool is mining pool software and a coinbase distribution service, not a financial service in any way. It does not accept deposits, hold balances, or manage funds on anyone's behalf. Both the finder bonus and each round's Best 13 payouts are placed directly as outputs in the block's own coinbase transaction by the pool software the moment a block is found \u2014 the pool itself is never a party to that transfer."
             }
           },
           {
@@ -882,12 +882,12 @@
             "name": "How do payouts work?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Every time a block is found, three things happen: 2% of the full block reward (Block Reward + Tx Fees) goes to the pool fee; 1 BCH is then paid to the miner who found the block, directly in the block's coinbase; whatever remains is split among the round's Top 13 Best Shares \u2014 the 13 highest-difficulty shares submitted since the last block: 1st gets 38.3%, 2nd 23.6%, 3rd 14.6%, and 4th\u201313th get 2.35% each. The block finder receives the 1 BCH bonus, plus \u2014 since a winning share is also the round's best share \u2014 their own 1st-place cut of the Top 13 payout, all in that same coinbase transaction. It's fully trustless \u2014 no pool-side ledger to trust, and no ongoing bookkeeping."
+              "text": "Every time a block is found, three things happen: 2% of the full block reward (Block Reward + Tx Fees) goes to the pool fee; 1 BCH is then paid to the miner who found the block, directly in the block's coinbase; whatever remains is split among the round's Best 13 \u2014 the 13 highest-difficulty shares submitted since the last block: 1st gets 38.3%, 2nd 23.6%, 3rd 14.6%, and 4th\u201313th get 2.35% each. The block finder receives the 1 BCH bonus, plus \u2014 since a winning share is also the round's best share \u2014 their own 1st-place cut of the Best 13 payout, all in that same coinbase transaction. It's fully trustless \u2014 no pool-side ledger to trust, and no ongoing bookkeeping."
             }
           },
           {
             "@type": "Question",
-            "name": "What is the Top 13 Best Shares payout?",
+            "name": "What is the Best 13 payout?",
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Instead of paying every miner a small proportional amount, each round the pool ranks every share submitted since the last block by difficulty and pays out the 13 highest \u2014 1st place gets 38.3% of the pot, 2nd 23.6%, 3rd 14.6%, and 4th through 13th get 2.35% each. One block found starts a new round; the next block found closes it and triggers the payout."
@@ -898,7 +898,7 @@
             "name": "What is the pool fee?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The pool fee is a flat 2% of the full block reward (Block Reward + Tx Fees), taken before the 1 BCH finder bonus and the Top 13 Best Shares payout are calculated."
+              "text": "The pool fee is a flat 2% of the full block reward (Block Reward + Tx Fees), taken before the 1 BCH finder bonus and the Best 13 payout are calculated."
             }
           },
           {
@@ -906,7 +906,7 @@
             "name": "When will I receive my payout?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "There's no separate \"sending\" step \u2014 both the 1 BCH finder bonus and your Best Shares payout are placed directly as outputs in that block's own coinbase transaction the moment it's found. Coinbase outputs are spendable after 100 confirmations (~16.5 hours), per standard Bitcoin rules, and there's no ongoing bookkeeping to wait on."
+              "text": "There's no separate \"sending\" step \u2014 both the 1 BCH finder bonus and your Best 13 payout are placed directly as outputs in that block's own coinbase transaction the moment it's found. Coinbase outputs are spendable after 100 confirmations (~16.5 hours), per standard Bitcoin rules, and there's no ongoing bookkeeping to wait on."
             }
           },
           {

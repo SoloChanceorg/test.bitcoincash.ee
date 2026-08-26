@@ -107,7 +107,7 @@ let lastLookupAddr    = null; // guards against routeFromHash() re-triggering do
 const lookupBtn  = document.getElementById('lookup-btn');
 const addrInput  = document.getElementById('address-input');
 const FINDER_CAPTION = '1 BCH bonus + your share';
-const SHARE_CAPTION  = 'your Best Shares rank payout';
+const SHARE_CAPTION  = 'your Best 13 rank payout';
 
 // ── Navigation ──────────────────────────────────────────
 
@@ -1279,7 +1279,7 @@ function renderBsPayoutsTable() {
   const cutoffRow = bsRest.length > 0 ? `
     <tr class="bs-cutoff-row"><td colspan="6"><div class="bs-cutoff-inner">
       <span class="bs-cutoff-line"></span>
-      Top 13 cutoff — addresses below earn no payout this round
+      Best 13 cutoff — addresses below earn no payout this round
       <span class="bs-cutoff-line"></span>
     </div></td></tr>` : '';
 
@@ -1372,6 +1372,6 @@ async function loadBestShares() {
   } catch (err) {
     bestSharesLoaded = false;
     console.warn('Best shares unavailable:', err.message);
-    loading.textContent = 'Could not load best shares.';
+    loading.textContent = 'Could not load Best 13.';
   }
 }
