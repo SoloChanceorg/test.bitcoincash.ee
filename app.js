@@ -1243,7 +1243,8 @@ function renderBsShareRow(r, networkDiff, includePayout) {
   const medal = r.rank <= 3 ? bsMedals[r.rank - 1] : null;
   const bsCell = medal ? medal + ' ' + formatDiffCompact(r.bestshare) : formatDiffCompact(r.bestshare);
   const payoutCell = includePayout ? `${formatBch(r.btc)}${bsUsdCell(r.btc)}` : '—';
-  return `<tr>
+  const rankClass = r.rank <= 3 ? ` class="bs-rank-${r.rank}"` : '';
+  return `<tr${rankClass}>
     <td>${r.rank}</td>
     <td><code class="bs-address" data-address="${escapeHtml(r.address)}">${escapeHtml(r.address)}</code></td>
     <td>${icon} ${escapeHtml(parseHashrateStr(r.hashrate1m))}</td>

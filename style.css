@@ -1241,6 +1241,15 @@ code.connect-value {
 #bs-payouts-table tbody td {
   transition: background .15s;
 }
+
+/* Medal-tinted rows for the round's top 3 — takes precedence over the
+   .col-bs/.col-payout column tints (same #bs-payouts-table specificity,
+   declared later), but still yields to the hover state below (equal
+   specificity, hover declared later still). */
+#bs-payouts-table tbody tr.bs-rank-1 td { background: rgba(255, 215, 0, 0.09); }
+#bs-payouts-table tbody tr.bs-rank-2 td { background: rgba(192, 192, 192, 0.09); }
+#bs-payouts-table tbody tr.bs-rank-3 td { background: rgba(205, 127, 50, 0.09); }
+
 #bs-payouts-table tbody tr:hover td {
   background: rgba(255, 255, 255, 0.04);
 }
