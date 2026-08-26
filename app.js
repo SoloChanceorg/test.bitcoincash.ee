@@ -214,7 +214,6 @@ function hashrateToHps(str) {
 }
 
 function parseHashrateStr(str) {
-  if (str == null) return '—';
   const hps = hashrateToHps(str);
   return hps > 0 ? formatHashrate(hps) : '0 H/s';
 }
@@ -1239,7 +1238,9 @@ function renderBsShareRow(r, networkDiff, includePayout) {
     ? ` <span class="info-tip" data-tip="This share was sent before the last target was lowered">i</span>`
     : '';
   const idle = !r.lastshare || (Date.now() / 1000 - r.lastshare) >= 300;
-  const icon = idle ? '<span class="miner-idle-icon">💤</span>' : '<span class="miner-active-icon">⛏️</span>';
+  const hashrateCell = idle
+    ? '<span class="miner-idle-icon">💤</span>'
+    : `<span class="miner-active-icon">⛏️</span> ${escapeHtml(parseHashrateStr(r.hashrate1m))}`;
   const medal = r.rank <= 3 ? bsMedals[r.rank - 1] : null;
   const bsCell = medal ? medal + ' ' + formatDiffCompact(r.bestshare) : formatDiffCompact(r.bestshare);
   const payoutCell = includePayout ? `${formatBch(r.btc)}${bsUsdCell(r.btc)}` : '—';
@@ -1247,7 +1248,7 @@ function renderBsShareRow(r, networkDiff, includePayout) {
   return `<tr${rankClass}>
     <td>${r.rank}</td>
     <td><code class="bs-address" data-address="${escapeHtml(r.address)}">${escapeHtml(r.address)}</code></td>
-    <td>${icon} ${escapeHtml(parseHashrateStr(r.hashrate1m))}</td>
+    <td>${hashrateCell}</td>
     <td class="col-bs">${bsCell}</td>
     <td class="col-bs">${pctRaw}${pctTip}</td>
     <td class="col-payout">${payoutCell}</td>
