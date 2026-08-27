@@ -1258,6 +1258,11 @@ code.connect-value {
 #bs-payouts-table tbody tr.bs-rank-2 td { background: rgba(192, 192, 192, 0.09); }
 #bs-payouts-table tbody tr.bs-rank-3 td { background: rgba(205, 127, 50, 0.09); }
 
+/* The mainnet Hashback Bonus's current pick — takes precedence over the
+   medal tints above (same specificity, declared later), but still yields
+   to the hover state below. */
+#bs-payouts-table tbody tr.bs-hashback-winner td { background: rgba(240, 71, 71, 0.12); }
+
 #bs-payouts-table tbody tr:hover td {
   background: rgba(255, 255, 255, 0.04);
 }

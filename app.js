@@ -94,6 +94,8 @@ let bsSortDir = 'desc';      // 'desc' | 'asc'
 let bsTop13 = null;          // cached rows for re-sorting without refetching
 let bsRest  = null;
 let bsFinder = null, bsPoolFee = null, bsNetworkDiff = null;
+let bsHashbackWinnerAddress = null; // address of the mainnet Hashback Bonus's current pick, if it also shows up here
+const HASHBACK_HISTORY_URL = 'https://poolstats.solochance.org/bitcoincashee-hashback-history.json';
 const BLOCKS_PAGE_SIZE = 10;
 let allBlockEntries   = null; // newest-first, populated once per page load
 let currentBlocksPage = 1;
@@ -1244,10 +1246,13 @@ function renderBsShareRow(r, networkDiff, includePayout) {
   const medal = r.rank <= 3 ? bsMedals[r.rank - 1] : null;
   const bsCell = medal ? medal + ' ' + formatDiffCompact(r.bestshare) : formatDiffCompact(r.bestshare);
   const payoutCell = includePayout ? `${formatBch(r.btc)}${bsUsdCell(r.btc)}` : '—';
-  const rankClass = r.rank <= 3 ? ` class="bs-rank-${r.rank}"` : '';
-  return `<tr${rankClass}>
+  const isHashbackWinner = bsHashbackWinnerAddress != null && r.address === bsHashbackWinnerAddress;
+  const rowClasses = [r.rank <= 3 ? `bs-rank-${r.rank}` : null, isHashbackWinner ? 'bs-hashback-winner' : null].filter(Boolean);
+  const rowClass = rowClasses.length ? ` class="${rowClasses.join(' ')}"` : '';
+  const addressPrefix = isHashbackWinner ? '🎁 ' : '';
+  return `<tr${rowClass}>
     <td>${r.rank}</td>
-    <td><code class="bs-address" data-address="${escapeHtml(r.address)}">${escapeHtml(r.address)}</code></td>
+    <td><code class="bs-address" data-address="${escapeHtml(r.address)}">${addressPrefix}${escapeHtml(r.address)}</code></td>
     <td>${hashrateCell}</td>
     <td class="col-bs">${bsCell}</td>
     <td class="col-bs">${pctRaw}${pctTip}</td>
@@ -1349,6 +1354,17 @@ async function loadBestShares() {
     bsRest = ranked.filter(r => r.rank > 13);
 
     renderBsPayoutsTable();
+
+    // Hashback Bonus is mainnet-only, so this is fetched separately and
+    // re-renders the table when (if) it resolves — a slow/failed fetch here
+    // shouldn't hold up or break the main Best 13 list.
+    fetch(HASHBACK_HISTORY_URL, { cache: 'no-cache' })
+      .then(r => r.ok ? r.json() : [])
+      .then(data => {
+        bsHashbackWinnerAddress = Array.isArray(data) && data.length > 0 ? data[0].address : null;
+        renderBsPayoutsTable();
+      })
+      .catch(() => {});
 
     // Delegate sort-header clicks and address clicks from the whole content block
     content.addEventListener('click', e => {
