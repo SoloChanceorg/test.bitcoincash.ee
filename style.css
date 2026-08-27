@@ -90,7 +90,7 @@ main.container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  min-height: 60px;
   gap: 1rem;
 }
 
@@ -350,6 +350,12 @@ main.container {
   color: var(--muted);
   font-size: .9rem;
 }
+
+.info-desc a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.info-desc a:hover { text-decoration: underline; }
 
 
 .payout-order {
