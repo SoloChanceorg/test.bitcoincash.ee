@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hashback Winners — bitcoincash.ee Pool | Bitcoin Cash Mining Pool</title>
+  <meta name="description" content="Every address that has won the Hashback Bonus — the free hourly hashrate giveaway from bitcoincash.ee Pool's mainnet." />
+  <meta property="og:title" content="Hashback Winners — bitcoincash.ee Pool" />
+  <meta property="og:description" content="Every address that has won the Hashback Bonus — the free hourly hashrate giveaway from bitcoincash.ee Pool's mainnet." />
+  <meta property="og:url" content="https://test.bitcoincash.ee/hashback-winners.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="bitcoincash.ee Pool" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Hashback Winners — bitcoincash.ee Pool" />
+  <meta name="twitter:description" content="Every address that has won the Hashback Bonus — the free hourly hashrate giveaway from bitcoincash.ee Pool's mainnet." />
+  <link rel="canonical" href="https://test.bitcoincash.ee/hashback-winners.html" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Ubuntu+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* .workers-table assumes the address is the first column (it gets the
+       accent/monospace/left-align treatment there) — here it's the second
+       column instead, so those rules need to be reapplied explicitly. */
+    #hashback-table td:nth-child(2) {
+      text-align: left;
+      color: var(--muted);
+    }
+    #hashback-table td:nth-child(2) a.bs-address {
+      color: inherit;
+      text-decoration: none;
+    }
+    #hashback-table td:nth-child(2) a.bs-address:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* Match the Best 13 table's look: a subtle hover highlight per row, and
+       the same green-tinted stat columns treatment. */
+    #hashback-table tbody td { transition: background .15s; }
+    #hashback-table tbody tr:hover td { background: rgba(255, 255, 255, 0.04); }
+    #hashback-table .col-bs { background: rgba(10, 193, 142, 0.025); }
+    #hashback-table thead .col-bs { border-top: 2px solid rgba(10, 193, 142, 0.18); }
+
+    #hashback-table thead .hb-sortable {
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    #hashback-table thead .hb-sortable:hover { color: var(--accent); }
+
+    /* The in-progress hour's hashrate/best share aren't finalized yet, so a
+       spinning gear stands in for the number until the hour completes. */
+    .hb-gear {
+      display: inline-block;
+      animation: hb-gear-spin 2s linear infinite;
+    }
+    @keyframes hb-gear-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+<div class="site-topbar">
+  <div class="testnet-banner" role="alert">This is the Testnet4 version of bitcoincash.ee Pool &middot; Mainnet coming soon</div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img src="logo.svg" alt="bitcoincash.ee Pool" class="logo-icon" />
+        <span class="logo-text"><span class="accent">bitcoincash.ee</span> Pool</span>
+      </a>
+      <nav class="nav">
+        <a href="/" class="nav-btn">Home</a>
+        <a href="/how-it-works.html" class="nav-btn">How It Works</a>
+        <a href="/hashback-bonus.html" class="nav-btn">Hashback Bonus</a>
+        <a href="/hashback-winners.html" class="nav-btn active">Hashback Winners</a>
+        <a href="/#connect" class="nav-btn">Connect</a>
+        <a href="/#mystats" class="nav-btn">My Stats</a>
+        <a href="/#bestshares" class="nav-btn">Best 13</a>
+        <a href="/#blocks" class="nav-btn">Blocks</a>
+        <a href="/faq.html" class="nav-btn">FAQ</a>
+      </nav>
+    </div>
+  </header>
+  </div>
+
+  <main class="container">
+
+    <div class="hero">
+      <h1>Hashback <span class="accent">Winners</span></h1>
+      <p class="hero-sub">Every hour, bitcoincash.ee Pool points a dedicated miner at a random active address and mines for it &mdash; completely free. This is the log of every address that's won one.</p>
+      <a href="/hashback-bonus.html" class="nav-btn" style="display:inline-block;margin-top:.5rem;background:var(--accent-dim);color:var(--accent)">What Is Hashback Bonus? →</a>
+    </div>
+
+    <div class="disclaimer" style="margin-top:1.5rem">
+      <span class="disclaimer-icon">📝</span>
+      <div>
+        <strong>Note</strong>
+        <p>Hashback Bonus is a mainnet-only feature &mdash; there is no Testnet4 version of it. The list below is the real winners history from bitcoincash.ee Pool's mainnet, shown here for reference.</p>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:2rem">Winners History</div>
+    <div class="card">
+      <div id="hashback-loading" class="text-center">Loading...</div>
+      <div id="hashback-content" class="hidden" style="overflow-x:auto">
+        <table id="hashback-table" class="workers-table"></table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="https://t.me/bitcoincashee" target="_blank" rel="noopener" class="tg-footer-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 14.498l-2.95-.924c-.64-.204-.657-.64.136-.948l11.57-4.461c.537-.194 1.006.131.836.083z"/></svg>
+        t.me/bitcoincashee
+      </a>
+      <a href="mailto:hi@bitcoincash.ee" class="email-footer-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        hi@bitcoincash.ee
+      </a>
+      <span class="muted">
+        <a href="/terms.html" style="color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Terms</a>
+        &nbsp;·&nbsp;
+        <a href="/privacy.html" style="color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Privacy</a>
+      </span>
+    </div>
+    <div class="container footer-networks">
+      <div>Mainnet: <a href="https://bitcoincash.ee" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">bitcoincash.ee</a> &mdash; <span class="accent">mainnet.bitcoincash.ee:3333</span></div>
+      <div>Testnet4: <a href="/" style="color:var(--accent);text-decoration:none">test.bitcoincash.ee</a> &mdash; <span class="accent">testnet4.bitcoincash.ee:3333</span></div>
+    </div>
+    <div class="container footer-bottom">
+      <div>&copy; 2026 bitcoincash.ee Pool. &middot; a <a href="https://solochance.org" target="_blank" rel="noopener" class="footer-solochance-link">SoloChance.org</a> project</div>
+      <div>Built in 🇪🇪 Estonia &middot; Hosted in 🇩🇪 Germany</div>
+    </div>
+  </footer>
+
+  <script>
+    const HASHBACK_HISTORY_URL = 'https://poolstats.solochance.org/bitcoincashee-hashback-history.json';
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str ?? '';
+      return div.innerHTML;
+    }
+
+    function formatHashbackTimestamp(iso) {
+      const d = new Date(iso);
+      if (isNaN(d.getTime())) return '—';
+      const pad = n => String(n).padStart(2, '0');
+      return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    function formatHashbackHashrate(hps) {
+      if (hps == null || isNaN(hps)) return '—';
+      if (hps >= 1e18) return (hps / 1e18).toFixed(2) + ' EH/s';
+      if (hps >= 1e15) return (hps / 1e15).toFixed(2) + ' PH/s';
+      if (hps >= 1e12) return (hps / 1e12).toFixed(2) + ' TH/s';
+      if (hps >= 1e9)  return (hps / 1e9).toFixed(2)  + ' GH/s';
+      if (hps >= 1e6)  return (hps / 1e6).toFixed(2)  + ' MH/s';
+      if (hps >= 1e3)  return (hps / 1e3).toFixed(2)  + ' KH/s';
+      return hps.toFixed(0) + ' H/s';
+    }
+
+    function formatHashbackDiff(n) {
+      if (n == null || isNaN(n)) return '—';
+      if (n >= 1e12) return (n / 1e12).toFixed(2) + 'T';
+      if (n >= 1e9)  return (n / 1e9).toFixed(2)  + 'G';
+      if (n >= 1e6)  return (n / 1e6).toFixed(2)  + 'M';
+      if (n >= 1e3)  return (n / 1e3).toFixed(2)  + 'K';
+      return n.toFixed(0);
+    }
+
+    // workerName comes back as "<address>.<worker>" — this is just the
+    // suffix after the address, i.e. what the miner actually named itself.
+    function workerNamePart(address, workerName) {
+      if (!workerName) return '—';
+      const prefix = address + '.';
+      return workerName.startsWith(prefix) ? workerName.slice(prefix.length) : workerName;
+    }
+
+    let hbEntries = null; // cached, unsorted — re-sorted in place on header clicks
+    let hbSortCol = 'date'; // 'date' | 'hashrate' | 'bestshare' — Date is the default sort
+    let hbSortDir = 'desc';
+
+    const HB_SORT_KEYS = {
+      date: e => new Date(e.startedAt).getTime(),
+      hashrate: e => e.hashrate1h ?? -1,
+      bestshare: e => e.bestshare ?? -1,
+    };
+
+    function hbSortArrow(col) {
+      if (hbSortCol !== col) return '';
+      return hbSortDir === 'desc' ? ' ▼' : ' ▲';
+    }
+
+    function renderHashbackTable() {
+      const table = document.getElementById('hashback-table');
+      if (!table || !hbEntries) return;
+
+      const dir = hbSortDir === 'asc' ? 1 : -1;
+      const keyFn = HB_SORT_KEYS[hbSortCol];
+      const sorted = hbEntries.slice().sort((a, b) => (keyFn(a) - keyFn(b)) * dir);
+
+      // The entry with the most recent startedAt is always the hour that's
+      // still in progress — its hashrate/best share haven't been finalized
+      // yet, so it gets a "currently working" treatment instead of numbers.
+      const current = hbEntries.reduce((max, e) =>
+        new Date(e.startedAt) > new Date(max.startedAt) ? e : max, hbEntries[0]);
+      const HB_GEAR = '<span class="hb-gear">⚙️</span>';
+
+      const rows = sorted.map(e => {
+        const isCurrent = e === current;
+        return `
+        <tr>
+          <td>${isCurrent ? 'Current Winner' : escapeHtml(formatHashbackTimestamp(e.startedAt))}</td>
+          <td><a href="/#mystats/${encodeURIComponent(e.address)}" class="bs-address">${escapeHtml(e.address)}</a></td>
+          <td>${escapeHtml(workerNamePart(e.address, e.workerName))}</td>
+          <td class="col-bs">${isCurrent ? HB_GEAR : escapeHtml(formatHashbackHashrate(e.hashrate1h))}</td>
+          <td class="col-bs">${isCurrent ? HB_GEAR : escapeHtml(formatHashbackDiff(e.bestshare))}</td>
+        </tr>`;
+      }).join('');
+
+      table.innerHTML = `
+        <thead><tr>
+          <th class="hb-sortable" data-sort="date">Date${hbSortArrow('date')}</th>
+          <th>Address</th><th>Worker</th>
+          <th class="col-bs hb-sortable" data-sort="hashrate">Hashrate (1h)${hbSortArrow('hashrate')}</th>
+          <th class="col-bs hb-sortable" data-sort="bestshare">Best Share${hbSortArrow('bestshare')}</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>`;
+    }
+
+    (async function loadHashbackWinners() {
+      const loading = document.getElementById('hashback-loading');
+      const content = document.getElementById('hashback-content');
+
+      try {
+        const resp = await fetch(HASHBACK_HISTORY_URL, { cache: 'no-cache' });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const entries = await resp.json();
+
+        hbEntries = Array.isArray(entries) ? entries : [];
+
+        if (hbEntries.length === 0) {
+          loading.textContent = 'No Hashback Bonus winners yet.';
+          return;
+        }
+
+        renderHashbackTable();
+
+        content.addEventListener('click', e => {
+          const th = e.target.closest('.hb-sortable');
+          if (!th) return;
+          const col = th.dataset.sort;
+          if (hbSortCol === col) {
+            hbSortDir = hbSortDir === 'desc' ? 'asc' : 'desc';
+          } else {
+            hbSortCol = col;
+            hbSortDir = 'desc';
+          }
+          renderHashbackTable();
+        });
+
+        loading.classList.add('hidden');
+        content.classList.remove('hidden');
+      } catch (err) {
+        loading.textContent = 'Could not load Hashback winners.';
+        console.warn('Hashback winners unavailable:', err.message);
+      }
+    })();
+  </script>
+</body>
+</html>
