@@ -91,6 +91,8 @@ main.container {
   align-items: center;
   justify-content: space-between;
   min-height: 60px;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
   gap: 1rem;
 }
 
