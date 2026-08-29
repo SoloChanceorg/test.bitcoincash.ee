@@ -359,6 +359,50 @@ main.container {
 }
 .info-desc a:hover { text-decoration: underline; }
 
+.inspiration-box {
+  background: rgba(79, 70, 229, 0.12);
+  border: 1px solid rgba(79, 70, 229, 0.25);
+  border-radius: var(--radius-sm);
+  padding: .65rem .85rem;
+  margin-bottom: .85rem;
+}
+
+.inspiration-box .stat-label {
+  color: #a5a0f5;
+  margin-bottom: .3rem;
+}
+
+.inspiration-box p {
+  margin: 0;
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+.first-block-box {
+  background: var(--accent-dim);
+  border: 1px solid rgba(10, 193, 142, 0.25);
+  border-radius: var(--radius-sm);
+  padding: .65rem .85rem;
+  margin-bottom: .85rem;
+}
+
+.first-block-box .stat-label {
+  color: var(--accent);
+  margin-bottom: .3rem;
+}
+
+.first-block-box p {
+  margin: 0;
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+.first-block-box a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.first-block-box a:hover { text-decoration: underline; }
+
 
 .payout-order {
   margin-top: .65rem;
