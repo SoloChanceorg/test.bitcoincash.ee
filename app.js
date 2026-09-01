@@ -1235,14 +1235,12 @@ function renderBsSpecialRow(label, btc) {
     <td>${escapeHtml(label)}</td>
     <td></td>
     <td class="col-bs"></td>
-    <td class="col-bs"></td>
     <td class="col-payout">${formatBch(btc)}${bsUsdCell(btc)}</td>
   </tr>`;
 }
 
 function renderBsShareRow(r, networkDiff, includePayout) {
   const pct = (r.bestshare / networkDiff * 100);
-  const pctRaw = pct >= 0.001 ? pct.toFixed(3) + '%' : '&lt; 0.001%';
   const pctTip = pct > 100
     ? ` <span class="info-tip" data-tip="This share was sent before the last target was lowered">i</span>`
     : '';
@@ -1251,7 +1249,7 @@ function renderBsShareRow(r, networkDiff, includePayout) {
     ? '<span class="miner-idle-icon">💤</span>'
     : `<span class="miner-active-icon">⛏️</span> ${escapeHtml(parseHashrateStr(r.hashrate1m))}`;
   const medal = r.rank <= 3 ? bsMedals[r.rank - 1] : null;
-  const bsCell = medal ? medal + ' ' + formatDiffCompact(r.bestshare) : formatDiffCompact(r.bestshare);
+  const bsCell = `${medal ? medal + ' ' : ''}${formatDiffCompact(r.bestshare)} (${pct.toFixed(2)}%)${pctTip}`;
   const payoutCell = includePayout ? `${formatBch(r.btc)}${bsUsdCell(r.btc)}` : '—';
   const isHashbackWinner = bsHashbackWinnerAddress != null && r.address === bsHashbackWinnerAddress;
   const rowClasses = [r.rank <= 3 ? `bs-rank-${r.rank}` : null, isHashbackWinner ? 'bs-hashback-winner' : null].filter(Boolean);
@@ -1262,7 +1260,6 @@ function renderBsShareRow(r, networkDiff, includePayout) {
     <td><code class="bs-address" data-address="${escapeHtml(r.address)}">${addressPrefix}${escapeHtml(r.address)}</code></td>
     <td>${hashrateCell}</td>
     <td class="col-bs">${bsCell}</td>
-    <td class="col-bs">${pctRaw}${pctTip}</td>
     <td class="col-payout">${payoutCell}</td>
   </tr>`;
 }
@@ -1302,7 +1299,7 @@ function renderBsPayoutsTable() {
   if (!payoutsTable || !bsTop13 || !bsRest) return;
 
   const cutoffRow = bsRest.length > 0 ? `
-    <tr class="bs-cutoff-row"><td colspan="6"><div class="bs-cutoff-inner">
+    <tr class="bs-cutoff-row"><td colspan="5"><div class="bs-cutoff-inner">
       <span class="bs-cutoff-line"></span>
       Best 13 cutoff — addresses below earn no payout this round
       <span class="bs-cutoff-line"></span>
@@ -1316,7 +1313,6 @@ function renderBsPayoutsTable() {
       <th>#</th><th>Address</th>
       <th class="bs-sortable" data-sort="hashrate">Hashrate${bsSortArrow('hashrate')}</th>
       <th class="col-bs bs-sortable" data-sort="bestshare">Best Share${bsSortArrow('bestshare')}</th>
-      <th class="col-bs">% of Net Diff</th>
       <th class="col-payout">Payout</th>
     </tr></thead>
     <tbody>
