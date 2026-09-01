@@ -93,6 +93,7 @@ let bsSortCol = 'bestshare'; // 'bestshare' | 'hashrate' — Best Share is the d
 let bsSortDir = 'desc';      // 'desc' | 'asc'
 let bsTop13 = null;          // cached rows for re-sorting without refetching
 let bsRest  = null;
+let bsTotalBtc = null;       // cached "sum of all coinbase outputs" — re-rendered if price arrives after this table already painted
 let bsFinder = null, bsPoolFee = null, bsNetworkDiff = null;
 let bsHashbackWinnerAddress = null; // address of the mainnet Hashback Bonus's current pick, if it also shows up here
 const HASHBACK_HISTORY_URL = 'https://poolstats.solochance.org/bitcoincashee-hashback-history.json';
@@ -328,6 +329,12 @@ function applyBchPrice(price) {
     priceEl.classList.remove('skeleton');
   }
   renderCardThreePayouts();
+  // A direct "#bestshares" deep link can render the Best 13 tables before
+  // this price fetch (kicked off later, by loadPoolStats()) resolves — when
+  // that happens, USD cells are silently omitted and nothing re-renders them
+  // afterwards. Re-paint here so a late-arriving price still fills them in.
+  renderBsTotalTable();
+  renderBsPayoutsTable();
 }
 
 // Used both as a fallback when the real-hashrate SoloChance call fails (this
@@ -1279,6 +1286,17 @@ function bsSortArrow(col) {
   return bsSortDir === 'desc' ? ' ▼' : ' ▲';
 }
 
+function renderBsTotalTable() {
+  const totalTable = document.getElementById('bs-total-table');
+  if (!totalTable || bsTotalBtc == null) return;
+  totalTable.innerHTML = `
+    <thead><tr><th>Total</th><th>Amount</th></tr></thead>
+    <tbody><tr>
+      <td>Sum of all coinbase outputs this round</td>
+      <td>${formatBch(bsTotalBtc)}${bsUsdCell(bsTotalBtc)}</td>
+    </tr></tbody>`;
+}
+
 function renderBsPayoutsTable() {
   const payoutsTable = document.getElementById('bs-payouts-table');
   if (!payoutsTable || !bsTop13 || !bsRest) return;
@@ -1316,8 +1334,6 @@ async function loadBestShares() {
 
   const loading = document.getElementById('bestshares-loading');
   const content = document.getElementById('bestshares-content');
-  const totalTable = document.getElementById('bs-total-table');
-  const payoutsTable = document.getElementById('bs-payouts-table');
 
   try {
     const [{ finder, poolFee, ranked }, statusResp] = await Promise.all([
@@ -1338,13 +1354,8 @@ async function loadBestShares() {
     // Total in coinbase
     const totalSats = (finder?.satoshis ?? 0) + (poolFee?.satoshis ?? 0)
       + ranked.reduce((sum, r) => sum + (r.satoshis ?? 0), 0);
-    const totalBtc = totalSats / 1e8;
-    totalTable.innerHTML = `
-      <thead><tr><th>Total</th><th>Amount</th></tr></thead>
-      <tbody><tr>
-        <td>Sum of all coinbase outputs this round</td>
-        <td>${formatBch(totalBtc)}${bsUsdCell(totalBtc)}</td>
-      </tr></tbody>`;
+    bsTotalBtc = totalSats / 1e8;
+    renderBsTotalTable();
 
     // Payout breakdown — Block Finder, Pool Fee, Top 13 Ranks, then the rest
     bsFinder = finder;
