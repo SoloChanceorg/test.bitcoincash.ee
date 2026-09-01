@@ -1299,6 +1299,15 @@ code.connect-value {
   background: rgba(255, 255, 255, 0.04);
 }
 
+/* Pool-wide summary row: reads as disabled/non-interactive, not a real
+   ranked entry — dimmed, no hover highlight. */
+#bs-payouts-table tbody tr.bs-summary-row td {
+  opacity: .45;
+}
+#bs-payouts-table tbody tr.bs-summary-row:hover td {
+  background: none;
+}
+
 #bs-payouts-table .col-bs     { background: rgba(10, 193, 142, 0.025); }
 #bs-payouts-table .col-payout { background: rgba(240, 180, 41, 0.025); }
 #bs-payouts-table thead .col-bs     { border-top: 2px solid rgba(10, 193, 142, 0.18); }

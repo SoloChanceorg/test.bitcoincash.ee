@@ -95,6 +95,7 @@ let bsTop13 = null;          // cached rows for re-sorting without refetching
 let bsRest  = null;
 let bsTotalBtc = null;       // cached "sum of all coinbase outputs" — re-rendered if price arrives after this table already painted
 let bsFinder = null, bsPoolFee = null, bsNetworkDiff = null;
+let bsUsersCount = null, bsWorkersCount = null, bsHashrateDisplay = null;
 let bsHashbackWinnerAddress = null; // address of the mainnet Hashback Bonus's current pick, if it also shows up here
 const HASHBACK_HISTORY_URL = 'https://poolstats.solochance.org/bitcoincashee-hashback-history.json';
 const BLOCKS_PAGE_SIZE = 10;
@@ -1294,6 +1295,22 @@ function renderBsTotalTable() {
     </tbody>`;
 }
 
+// Pool-wide summary as the table's first row — same Users/Workers/Hashrate
+// fields shown on the home page's pool-stats cards, so the Best 13 list
+// reads in context rather than just as a bare address ranking.
+function renderBsSummaryRow() {
+  if (bsUsersCount == null && bsWorkersCount == null && bsHashrateDisplay == null) return '';
+  const users = bsUsersCount != null ? `${bsUsersCount} user${bsUsersCount === 1 ? '' : 's'}` : '—';
+  const workers = bsWorkersCount != null ? `${bsWorkersCount} worker${bsWorkersCount === 1 ? '' : 's'}` : '—';
+  return `<tr class="bs-summary-row">
+    <td></td>
+    <td>Total Hashrate (${users} / ${workers})</td>
+    <td>${escapeHtml(bsHashrateDisplay ?? '—')}</td>
+    <td class="col-bs"></td>
+    <td class="col-payout"></td>
+  </tr>`;
+}
+
 function renderBsPayoutsTable() {
   const payoutsTable = document.getElementById('bs-payouts-table');
   if (!payoutsTable || !bsTop13 || !bsRest) return;
@@ -1316,6 +1333,7 @@ function renderBsPayoutsTable() {
       <th class="col-payout">Payout</th>
     </tr></thead>
     <tbody>
+      ${renderBsSummaryRow()}
       ${sortedTop13.map(r => renderBsShareRow(r, bsNetworkDiff, true)).join('')}
       ${cutoffRow}
       ${sortedRest.map(r => renderBsShareRow(r, bsNetworkDiff, false)).join('')}
@@ -1343,6 +1361,11 @@ async function fetchAndRenderBestShares() {
   const diffPercent = parseFloat(pool.diff);
   const accepted = pool.accepted;
   const networkDiff = (diffPercent > 0 && accepted > 0) ? accepted / (diffPercent / 100) : 874000000000;
+
+  // Same fields/formatting as the home page's pool-stats cards
+  bsUsersCount = pool.Users ?? pool.users ?? null;
+  bsWorkersCount = pool.Workers ?? pool.workers ?? null;
+  bsHashrateDisplay = parseHashrateStr(pool.hashrate5m ?? pool.hashrate1m);
 
   // Coinbase breakdown — Block Finder and Pool Fee are cached here so
   // renderBsTotalTable() can show them alongside the total; needs to
