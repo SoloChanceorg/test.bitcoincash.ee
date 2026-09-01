@@ -1322,6 +1322,46 @@ function renderBsPayoutsTable() {
     </tbody>`;
 }
 
+// Fetches the current round's coinbase split and re-renders both Best 13
+// tables. Split out from loadBestShares() so a periodic refresh (below) can
+// re-run just this part — otherwise each row's idle/active (💤/⛏️) icon is
+// computed from a `lastshare` timestamp that was only ever fetched once, and
+// coming back to an already-open tab after a few minutes makes every miner
+// look idle even if they never stopped mining.
+async function fetchAndRenderBestShares() {
+  const [{ finder, poolFee, ranked }, statusResp] = await Promise.all([
+    fetchTopShares(),
+    fetch(`${API_BASE}/pool/pool.status`, { cache: 'no-cache' }),
+  ]);
+
+  const statusText = await statusResp.text();
+  const pool = {};
+  statusText.trim().split('\n').forEach(line => {
+    try { Object.assign(pool, JSON.parse(line)); } catch {}
+  });
+
+  const diffPercent = parseFloat(pool.diff);
+  const accepted = pool.accepted;
+  const networkDiff = (diffPercent > 0 && accepted > 0) ? accepted / (diffPercent / 100) : 874000000000;
+
+  // Coinbase breakdown — Block Finder and Pool Fee are cached here so
+  // renderBsTotalTable() can show them alongside the total; needs to
+  // happen before that render call, not after.
+  bsFinder = finder;
+  bsPoolFee = poolFee;
+  const totalSats = (finder?.satoshis ?? 0) + (poolFee?.satoshis ?? 0)
+    + ranked.reduce((sum, r) => sum + (r.satoshis ?? 0), 0);
+  bsTotalBtc = totalSats / 1e8;
+  renderBsTotalTable();
+
+  // Payout breakdown — Top 13 Ranks, then the rest
+  bsNetworkDiff = networkDiff;
+  bsTop13 = ranked.filter(r => r.rank <= 13);
+  bsRest = ranked.filter(r => r.rank > 13);
+
+  renderBsPayoutsTable();
+}
+
 async function loadBestShares() {
   if (bestSharesLoaded) return;
   bestSharesLoaded = true;
@@ -1330,37 +1370,7 @@ async function loadBestShares() {
   const content = document.getElementById('bestshares-content');
 
   try {
-    const [{ finder, poolFee, ranked }, statusResp] = await Promise.all([
-      fetchTopShares(),
-      fetch(`${API_BASE}/pool/pool.status`, { cache: 'no-cache' }),
-    ]);
-
-    const statusText = await statusResp.text();
-    const pool = {};
-    statusText.trim().split('\n').forEach(line => {
-      try { Object.assign(pool, JSON.parse(line)); } catch {}
-    });
-
-    const diffPercent = parseFloat(pool.diff);
-    const accepted = pool.accepted;
-    const networkDiff = (diffPercent > 0 && accepted > 0) ? accepted / (diffPercent / 100) : 874000000000;
-
-    // Coinbase breakdown — Block Finder and Pool Fee are cached here so
-    // renderBsTotalTable() can show them alongside the total; needs to
-    // happen before that render call, not after.
-    bsFinder = finder;
-    bsPoolFee = poolFee;
-    const totalSats = (finder?.satoshis ?? 0) + (poolFee?.satoshis ?? 0)
-      + ranked.reduce((sum, r) => sum + (r.satoshis ?? 0), 0);
-    bsTotalBtc = totalSats / 1e8;
-    renderBsTotalTable();
-
-    // Payout breakdown — Top 13 Ranks, then the rest
-    bsNetworkDiff = networkDiff;
-    bsTop13 = ranked.filter(r => r.rank <= 13);
-    bsRest = ranked.filter(r => r.rank > 13);
-
-    renderBsPayoutsTable();
+    await fetchAndRenderBestShares();
 
     // Hashback Bonus is mainnet-only, so this is fetched separately and
     // re-renders the table when (if) it resolves — a slow/failed fetch here
@@ -1400,3 +1410,10 @@ async function loadBestShares() {
     loading.textContent = 'Could not load Best 13.';
   }
 }
+
+// Keeps hashrate/idle-state and payout figures current while the Best 13
+// section sits open in the background — see fetchAndRenderBestShares()'s
+// comment for why this matters.
+setInterval(() => {
+  if (bestSharesLoaded) fetchAndRenderBestShares().catch(() => {});
+}, 30_000);
