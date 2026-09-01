@@ -1205,6 +1205,21 @@ code.connect-value {
 
 .workers-table th:not(:first-child) { text-align: right; }
 
+/* Coinbase Breakdown: only "Total Block Reward" (the first row) keeps the
+   accent color; Block Finder/Pool Fee/Best 13 Distribution read as plain
+   default text, same as an address in the Best 13 table below. */
+#bs-total-table tbody tr:not(:first-child) td:first-child {
+  font-family: monospace;
+  color: var(--muted);
+}
+
+/* Ubuntu Mono renders visually smaller than the browser's default monospace
+   stack (used above) at the same declared size, so bump it up to read as
+   the same weight/prominence as the row it's set apart from. */
+#bs-total-table tbody tr:first-child td:first-child {
+  font-size: 1rem;
+}
+
 .bs-pending { color: var(--muted); opacity: .4; }
 
 /* Natural (auto) table layout, same as .workers-table on My Stats: columns
