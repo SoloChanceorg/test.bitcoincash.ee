@@ -752,6 +752,13 @@ function formatBch(n) {
   return n.toFixed(8).replace(/0+$/, '').replace(/\.$/, '') + ' BCH';
 }
 
+// Same as formatBch(), but always keeps all 8 decimals — used on the
+// Coinbase Breakdown table, where the full precision is the point.
+function formatBch8(n) {
+  if (n == null || isNaN(n)) return '—';
+  return n.toFixed(8) + ' BCH';
+}
+
 // bchPrice is null for tBCH (no real-world price) — callers omit USD entirely then
 function formatUsd(bch) {
   if (bchPrice == null || bch == null || isNaN(bch)) return null;
@@ -1227,18 +1234,6 @@ function bsUsdCell(btc) {
   return usd ? `<div class="bs-payout-usd">${usd}</div>` : '';
 }
 
-// Block Finder / Pool Fee rows: no rank, no hashrate/best-share/net-diff —
-// just a label in the Address column and the payout amount.
-function renderBsSpecialRow(label, btc) {
-  return `<tr>
-    <td></td>
-    <td>${escapeHtml(label)}</td>
-    <td></td>
-    <td class="col-bs"></td>
-    <td class="col-payout">${formatBch(btc)}${bsUsdCell(btc)}</td>
-  </tr>`;
-}
-
 function renderBsShareRow(r, networkDiff, includePayout) {
   const pct = (r.bestshare / networkDiff * 100);
   const pctTip = pct > 100
@@ -1286,12 +1281,17 @@ function bsSortArrow(col) {
 function renderBsTotalTable() {
   const totalTable = document.getElementById('bs-total-table');
   if (!totalTable || bsTotalBtc == null) return;
+  const finderBtc = bsFinder?.btc;
+  const poolFeeBtc = bsPoolFee?.btc;
+  const best13Btc = (finderBtc != null && poolFeeBtc != null) ? bsTotalBtc - finderBtc - poolFeeBtc : null;
   totalTable.innerHTML = `
-    <thead><tr><th>Total</th><th>Amount</th></tr></thead>
-    <tbody><tr>
-      <td>Sum of all coinbase outputs this round</td>
-      <td>${formatBch(bsTotalBtc)}${bsUsdCell(bsTotalBtc)}</td>
-    </tr></tbody>`;
+    <thead><tr><th>Component</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>Total Block Reward</td><td>${formatBch8(bsTotalBtc)}${bsUsdCell(bsTotalBtc)}</td></tr>
+      <tr><td>🏆 Block Finder</td><td>${formatBch8(finderBtc)}${bsUsdCell(finderBtc)}</td></tr>
+      <tr><td>Pool Fee</td><td>${formatBch8(poolFeeBtc)}${bsUsdCell(poolFeeBtc)}</td></tr>
+      <tr><td>Best 13 Distribution</td><td>${formatBch8(best13Btc)}${bsUsdCell(best13Btc)}</td></tr>
+    </tbody>`;
 }
 
 function renderBsPayoutsTable() {
@@ -1316,8 +1316,6 @@ function renderBsPayoutsTable() {
       <th class="col-payout">Payout</th>
     </tr></thead>
     <tbody>
-      ${renderBsSpecialRow('🏆 Block Finder', bsFinder?.btc)}
-      ${renderBsSpecialRow('Pool Fee', bsPoolFee?.btc)}
       ${sortedTop13.map(r => renderBsShareRow(r, bsNetworkDiff, true)).join('')}
       ${cutoffRow}
       ${sortedRest.map(r => renderBsShareRow(r, bsNetworkDiff, false)).join('')}
@@ -1347,15 +1345,17 @@ async function loadBestShares() {
     const accepted = pool.accepted;
     const networkDiff = (diffPercent > 0 && accepted > 0) ? accepted / (diffPercent / 100) : 874000000000;
 
-    // Total in coinbase
+    // Coinbase breakdown — Block Finder and Pool Fee are cached here so
+    // renderBsTotalTable() can show them alongside the total; needs to
+    // happen before that render call, not after.
+    bsFinder = finder;
+    bsPoolFee = poolFee;
     const totalSats = (finder?.satoshis ?? 0) + (poolFee?.satoshis ?? 0)
       + ranked.reduce((sum, r) => sum + (r.satoshis ?? 0), 0);
     bsTotalBtc = totalSats / 1e8;
     renderBsTotalTable();
 
-    // Payout breakdown — Block Finder, Pool Fee, Top 13 Ranks, then the rest
-    bsFinder = finder;
-    bsPoolFee = poolFee;
+    // Payout breakdown — Top 13 Ranks, then the rest
     bsNetworkDiff = networkDiff;
     bsTop13 = ranked.filter(r => r.rank <= 13);
     bsRest = ranked.filter(r => r.rank > 13);

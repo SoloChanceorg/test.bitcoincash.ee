@@ -1211,7 +1211,8 @@ code.connect-value {
    size to their content and the table can grow past the card's width, so
    the wrapping div's overflow-x:auto scrolls horizontally only when it
    actually needs to — and shows no scrollbar at all when everything fits. */
-#bs-payouts-table tbody td:nth-child(2) {
+#bs-payouts-table tbody td:nth-child(2),
+#bs-payouts-table thead th:nth-child(2) {
   text-align: left;
 }
 
