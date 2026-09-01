@@ -1285,7 +1285,7 @@ function renderBsTotalTable() {
   const poolFeeBtc = bsPoolFee?.btc;
   const best13Btc = (finderBtc != null && poolFeeBtc != null) ? bsTotalBtc - finderBtc - poolFeeBtc : null;
   totalTable.innerHTML = `
-    <thead><tr><th>Component</th><th>Amount</th></tr></thead>
+    <thead><tr><th>Output</th><th>Amount</th></tr></thead>
     <tbody>
       <tr><td>Total Block Reward</td><td>${formatBch8(bsTotalBtc)}${bsUsdCell(bsTotalBtc)}</td></tr>
       <tr><td>🏆 Block Finder</td><td>${formatBch8(finderBtc)}${bsUsdCell(finderBtc)}</td></tr>
