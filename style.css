@@ -166,34 +166,6 @@ main.container {
   margin-bottom: .65rem;
 }
 
-.brand-fold {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-  width: 9.7em;
-  transition: width .6s cubic-bezier(.4, 0, .2, 1);
-}
-
-.brand-fold:hover { width: 16.5em; }
-
-.brand-slot {
-  display: block;
-  white-space: nowrap;
-  opacity: 1;
-  transition: opacity .35s ease;
-}
-
-.brand-long {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}
-
-.brand-fold:hover .brand-short { opacity: 0; }
-.brand-fold:hover .brand-long { opacity: 1; }
-
 .hero-sub {
   color: var(--muted);
   font-size: 1.05rem;
