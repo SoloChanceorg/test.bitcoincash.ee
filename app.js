@@ -110,7 +110,7 @@ let lastLookupAddr    = null; // guards against routeFromHash() re-triggering do
 // point and throw a ReferenceError.
 const lookupBtn  = document.getElementById('lookup-btn');
 const addrInput  = document.getElementById('address-input');
-const FINDER_CAPTION = '1 BCH bonus + your share';
+const FINDER_CAPTION = '1 BCH bonus + your Best 13 rank payout';
 const SHARE_CAPTION  = 'your Best 13 rank payout';
 
 // ── Navigation ──────────────────────────────────────────
@@ -904,6 +904,7 @@ async function doLookup() {
   document.getElementById('user-payout-grid').classList.add('hidden');
   document.getElementById('user-chance-grid').classList.add('hidden');
   document.getElementById('user-workers-card').classList.add('hidden');
+  document.getElementById('user-rank').textContent = '—';
   userPayoutFinder = null;
   userPayoutShare  = null;
   document.getElementById('user-payout-finder-usd').textContent = FINDER_CAPTION;
@@ -958,6 +959,14 @@ async function doLookup() {
     const payoutGrid     = document.getElementById('user-payout-grid');
     const unrankedNote   = document.getElementById('user-payout-unranked');
     const { entry, finderBtc } = await getMyTopShareEntry(addr);
+
+    // Best 13 Rank stat — medal for the top 3, plain number for 4th-13th,
+    // dash if this address isn't currently on the paid board at all.
+    document.getElementById('user-rank').textContent =
+      (entry != null && entry.rank <= 13)
+        ? (entry.rank <= 3 ? bsMedals[entry.rank - 1] + ' ' : '') + entry.rank
+        : '—';
+
     if (entry != null && entry.satoshis > 0) {
       userPayoutShare  = entry.btc;
       userPayoutFinder = entry.btc + finderBtc;
