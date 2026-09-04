@@ -900,11 +900,11 @@ async function doLookup() {
   grid.classList.add('hidden');
   details.classList.add('hidden');
   document.getElementById('user-payout-note').classList.add('hidden');
-  document.getElementById('user-payout-unranked').classList.add('hidden');
   document.getElementById('user-payout-grid').classList.add('hidden');
   document.getElementById('user-chance-grid').classList.add('hidden');
   document.getElementById('user-workers-card').classList.add('hidden');
   document.getElementById('user-rank').textContent = '—';
+  document.getElementById('user-rank-note').classList.add('hidden');
   userPayoutFinder = null;
   userPayoutShare  = null;
   document.getElementById('user-payout-finder-usd').textContent = FINDER_CAPTION;
@@ -955,36 +955,32 @@ async function doLookup() {
     }
 
     // Expected payout calculation — pulled directly from the pool node's
-    // authoritative topshares.status, not a client-side estimate
-    const payoutGrid     = document.getElementById('user-payout-grid');
-    const unrankedNote   = document.getElementById('user-payout-unranked');
+    // authoritative topshares.status, not a client-side estimate. Always
+    // shown, even when this address isn't in the paid Best 13: the finder
+    // bonus is available to any miner regardless of rank, and showing a
+    // real (zero) "if someone else finds it" figure plus the actual rank
+    // is more informative than hiding the whole grid.
+    const payoutGrid = document.getElementById('user-payout-grid');
+    const rankNote   = document.getElementById('user-rank-note');
     const { entry, finderBtc } = await getMyTopShareEntry(addr);
+    const inBest13 = entry != null && entry.rank <= 13;
 
-    // Best 13 Rank stat — medal for the top 3, plain number for 4th-13th,
-    // dash if this address isn't currently on the paid board at all.
-    document.getElementById('user-rank').textContent =
-      (entry != null && entry.rank <= 13)
-        ? (entry.rank <= 3 ? bsMedals[entry.rank - 1] + ' ' : '') + entry.rank
-        : '—';
+    // Best 13 Rank stat — medal for the top 3, plain number otherwise, dash
+    // if this address has never submitted a share at all.
+    document.getElementById('user-rank').textContent = entry != null
+      ? (entry.rank <= 3 ? bsMedals[entry.rank - 1] + ' ' : '') + entry.rank
+      : '—';
+    rankNote.classList.toggle('hidden', inBest13);
 
-    if (entry != null && entry.satoshis > 0) {
-      userPayoutShare  = entry.btc;
-      userPayoutFinder = entry.btc + finderBtc;
+    userPayoutShare  = inBest13 ? entry.btc : 0;
+    userPayoutFinder = (inBest13 ? entry.btc : 0) + finderBtc;
 
-      document.getElementById('user-payout-finder').textContent = userPayoutFinder.toFixed(6) + ' BCH';
-      document.getElementById('user-payout-share').textContent  = userPayoutShare.toFixed(6) + ' BCH';
-      document.getElementById('user-payout-finder-usd').textContent = FINDER_CAPTION;
-      document.getElementById('user-payout-share-usd').textContent  = SHARE_CAPTION;
-      payoutGrid.classList.remove('hidden');
-      unrankedNote.classList.add('hidden');
-      document.getElementById('user-payout-note').classList.remove('hidden');
-    } else {
-      userPayoutFinder = null;
-      userPayoutShare  = null;
-      payoutGrid.classList.add('hidden');
-      document.getElementById('user-payout-note').classList.add('hidden');
-      unrankedNote.classList.remove('hidden');
-    }
+    document.getElementById('user-payout-finder').textContent = userPayoutFinder.toFixed(6) + ' BCH';
+    document.getElementById('user-payout-share').textContent  = userPayoutShare.toFixed(6) + ' BCH';
+    document.getElementById('user-payout-finder-usd').textContent = FINDER_CAPTION;
+    document.getElementById('user-payout-share-usd').textContent  = SHARE_CAPTION;
+    payoutGrid.classList.remove('hidden');
+    document.getElementById('user-payout-note').classList.remove('hidden');
 
     // Show USD values from cached price when hashrate is zero (loadUserChance won't run or bails early)
     if (!hashrateToHps(rawHashrate) && bchPrice != null) {

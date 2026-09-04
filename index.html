@@ -586,7 +586,6 @@
       </div>
 
       <p id="user-payout-note" class="hidden" style="color:var(--muted);font-size:.8rem;margin-top:1rem">These are estimates based on current round data and your rank on the Best 13 board. Actual payouts may differ.</p>
-      <p id="user-payout-unranked" class="hidden" style="color:var(--muted);font-size:.8rem;margin-top:1rem">Your current best share isn't in this round's paid Best 13 yet — keep mining to climb the <button class="faq-link-btn" data-section="bestshares">Best 13 board</button>.</p>
       <div id="user-payout-grid" class="card-grid hidden" style="margin-top:.5rem;grid-template-columns:repeat(3, minmax(0, 1fr))">
         <div class="card stat-card">
           <div class="stat-label">If you find the block</div>
@@ -596,6 +595,7 @@
         <div class="card stat-card">
           <div class="stat-label">Best 13 Rank</div>
           <div class="stat-value" id="user-rank">—</div>
+          <div class="stat-change hidden" id="user-rank-note" style="color:var(--muted);font-size:.75rem">Not in Best 13 — to get paid, be in the Best 13 or find the block yourself.</div>
         </div>
         <div class="card stat-card">
           <div class="stat-label">If someone else finds it</div>
